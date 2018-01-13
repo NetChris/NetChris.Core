@@ -3,14 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <Version>0.0.0-alpha</Version>
-    <Authors>NetChris</Authors>
-    <Company>NetChris Corp.</Company>
     <AssemblyVersion>0.0.0.0</AssemblyVersion>
     <FileVersion>0.0.0.0</FileVersion>
-    <Copyright>(c) 2018 NetChris Corp.</Copyright>
-    <PackageProjectUrl>https://gitlab.com/NetChris/NetChris.Core/wikis/home</PackageProjectUrl>
-    <RepositoryUrl>https://gitlab.com/NetChris/NetChris.Core</RepositoryUrl>
-    <RepositoryType>GitLab</RepositoryType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -21,6 +15,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <Authors>NetChris</Authors>
+    <Company>NetChris Corp.</Company>
+    <Copyright>(c) 2018 NetChris Corp.</Copyright>
+    <PackageProjectUrl>https://gitlab.com/NetChris/NetChris.Core/wikis/home</PackageProjectUrl>
+    <RepositoryUrl>https://gitlab.com/NetChris/NetChris.Core</RepositoryUrl>
+    <RepositoryType>GitLab</RepositoryType>
   </PropertyGroup>
 
 </Project>
