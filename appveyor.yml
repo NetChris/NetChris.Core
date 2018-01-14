@@ -44,4 +44,4 @@ deploy:
 - provider: Environment
   name: nuggetboy.nuget.org
   on:
-    branch: master
+    appveyor_repo_tag: true
