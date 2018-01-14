@@ -30,4 +30,8 @@ artifacts:
 - path: '**\NetChris.Core.*.*.*.nupkg'
   name: NetChris.Core.nupkg
 
-# TODO - Deploy
+deploy:
+- provider: Environment
+  name: nuggetboy.nuget.org
+  on:
+    branch: master
