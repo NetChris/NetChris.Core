@@ -20,6 +20,9 @@ Param
 
 "Build number: $buildNumber"
 
+# Left-padded 0's for build number to allow for better sorting
+$paddedBuildNumber = $buildNumber.ToString().PadLeft(5,'0')
+
 $csprojFile = Get-Item $csprojPath
 
 if (!($csprojFile.Exists))
@@ -112,11 +115,13 @@ $env:majorVersion = ""
 $env:minorVersion = ""
 $env:patchVersion = ""
 $env:patchVersionNumeric = ""
+$env:paddedBuildNumber = ""
 
 $env:semVer = $version
 $env:majorVersion = $majorVersion
 $env:minorVersion = $minorVersion
 $env:patchVersion = $patchVersion
 $env:patchVersionNumeric = $patchVersionNumeric
+$env:paddedBuildNumber = $paddedBuildNumber
 
 $xml.Save($csprojFile.FullName)
