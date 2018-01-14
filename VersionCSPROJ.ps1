@@ -14,7 +14,8 @@
 Param
 (
     [Parameter(Mandatory)][int]$buildNumber,
-    [Parameter(Mandatory)][string]$csprojPath
+    [Parameter(Mandatory)][string]$csprojPath,
+    [string]$commit
 )
 
 "Build number: $buildNumber"
@@ -34,6 +35,12 @@ $xml = [xml](get-content $csprojPath)
 
 $propertyGroup = $xml.Project.PropertyGroup | Where {$_.Version}
 $version = $propertyGroup.Version
+
+if(!$propertyGroup.Version)
+{
+    Throw "'Version' property must exist in $csprojFileFullName"
+}
+
 $versionParts = $version.Split("{.}")
 
 [int]$majorVersion = $versionParts[0]
@@ -50,37 +57,53 @@ $assemblyVersion = "${majorVersion}.${minorVersion}.${buildNumber}.${patchVersio
 
 "New assembly/file version: $assemblyVersion"
 
-$assemblyVersionNode = $propertyGroup.AssemblyVersion
-$fileVersionNode = $propertyGroup.FileVersion
-$informationalVersionNode = $propertyGroup.InformationalVersion
+#$assemblyVersionNode = $propertyGroup.AssemblyVersion
+#$fileVersionNode = $propertyGroup.FileVersion
+#$informationalVersionNode = $propertyGroup.InformationalVersion
 
-if($assemblyVersionNode)
+if($propertyGroup.AssemblyVersion)
 {
     $propertyGroup.AssemblyVersion = $assemblyVersion
 }
 else
 {
-    "No AssemblyVersion property in the project.  Would have set to '${assemblyVersion}'"
+    "AssemblyVersion property not present.  Creating..."
+    $element = $xml.CreateElement("AssemblyVersion")
+    $element.InnerText = $assemblyVersion
+    $propertyGroup.AppendChild($element)
 }
 
-if($fileVersionNode)
+if($propertyGroup.FileVersion)
 {
     $propertyGroup.FileVersion = $assemblyVersion
 }
 else
 {
-    "No FileVersion property in the project.  Would have set to '${assemblyVersion}'"
+    "FileVersion property not present.  Creating..."
+    $element = $xml.CreateElement("FileVersion")
+    $element.InnerText = $assemblyVersion
+    $propertyGroup.AppendChild($element)
 }
 
-$informationalVersion = "Version $version (Build: $buildNumber)"
+if($commit)
+{
+    $informationalVersion = "Version $version (Build: $buildNumber, Commit: $commit)"
+}
+else
+{
+    $informationalVersion = "Version $version (Build: $buildNumber)"
+}
 
-if($informationalVersionNode)
+if($propertyGroup.InformationalVersion)
 {
     $propertyGroup.InformationalVersion = $informationalVersion
 }
 else
 {
-    "No InformationalVersion property in the project.  Would have set to '${informationalVersion}'"
+    "InformationalVersion property not present.  Creating..."
+    $element = $xml.CreateElement("InformationalVersion")
+    $element.InnerText = $informationalVersion
+    $propertyGroup.AppendChild($element)
 }
 
 # Clear environment variables first
