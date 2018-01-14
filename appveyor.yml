@@ -2,7 +2,7 @@ version: Build {build}
 image: Visual Studio 2017
 
 environment:
-  MsBuildVerbosity: normal
+  MsBuildVerbosity: minimal
 
 configuration: Release
 
