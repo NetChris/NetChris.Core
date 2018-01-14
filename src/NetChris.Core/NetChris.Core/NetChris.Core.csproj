@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <PackageId>NetChris.Core</PackageId>
-    <Version>0.0.0-prerelease.0</Version>
+    <Version>0.0.0-prerelease.1</Version>
     <Authors>NetChris</Authors>
     <Company>NetChris Corp.</Company>
     <Copyright>(c) 2018 NetChris Corp.</Copyright>
@@ -11,6 +11,7 @@
     <RepositoryType>GitLab</RepositoryType>
     <PackageIconUrl>https://netchris.blob.core.windows.net/public/static/icons/netchris.64.png</PackageIconUrl>
     <PackageTags>netchris dotnet-core diagnostics</PackageTags>
+    <Description>Base metadata and operational classes for .NET Core development.</Description>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
