@@ -12,11 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "!AppVeyor", "!AppVeyor", "{
 		..\..\appveyor.yml = ..\..\appveyor.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "!Versioning", "!Versioning", "{A022C3BE-9C8C-4813-A07C-9410BB26C6DD}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\VersionCSPROJ.ps1 = ..\..\VersionCSPROJ.ps1
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
