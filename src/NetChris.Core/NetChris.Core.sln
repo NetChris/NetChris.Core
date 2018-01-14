@@ -14,8 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "!AppVeyor", "!AppVeyor", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "!Versioning", "!Versioning", "{A022C3BE-9C8C-4813-A07C-9410BB26C6DD}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\InjectVersionEnvVars.ps1 = ..\..\InjectVersionEnvVars.ps1
-		..\..\Version.xml = ..\..\Version.xml
 		..\..\VersionCSPROJ.ps1 = ..\..\VersionCSPROJ.ps1
 	EndProjectSection
 EndProject
