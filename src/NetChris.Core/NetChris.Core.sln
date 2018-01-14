@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2020
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetChris.Core.UnitTests", "NetChris.Core.UnitTests\NetChris.Core.UnitTests.csproj", "{7B92AF64-B7D5-4FC4-BADD-17C0990AE857}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetChris.Core", "NetChris.Core\NetChris.Core.csproj", "{87BF2852-1024-4C21-9607-495D703F4523}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "!AppVeyor", "!AppVeyor", "{4B8FE7A4-5575-4174-8D7C-19FE48C9A2E1}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\appveyor.yml = ..\..\appveyor.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "!Versioning", "!Versioning", "{A022C3BE-9C8C-4813-A07C-9410BB26C6DD}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\InjectVersionEnvVars.ps1 = ..\..\InjectVersionEnvVars.ps1
+		..\..\Version.xml = ..\..\Version.xml
+		..\..\VersionCSPROJ.ps1 = ..\..\VersionCSPROJ.ps1
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B92AF64-B7D5-4FC4-BADD-17C0990AE857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B92AF64-B7D5-4FC4-BADD-17C0990AE857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B92AF64-B7D5-4FC4-BADD-17C0990AE857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B92AF64-B7D5-4FC4-BADD-17C0990AE857}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87BF2852-1024-4C21-9607-495D703F4523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87BF2852-1024-4C21-9607-495D703F4523}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87BF2852-1024-4C21-9607-495D703F4523}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87BF2852-1024-4C21-9607-495D703F4523}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {96049B14-E133-4C3C-A301-CA415DC59ED5}
+	EndGlobalSection
+EndGlobal

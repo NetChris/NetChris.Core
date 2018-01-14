@@ -1,0 +1,33 @@
+version: Build-{build}
+image: Visual Studio 2017
+
+environment:
+  MsBuildVerbosity: minimal
+
+configuration: Release
+
+before_build:
+- ps: >-
+    dotnet restore "$env:APPVEYOR_BUILD_FOLDER\src\NetChris.Core\NetChris.Core.sln"
+
+    .\VersionCSPROJ.ps1 -BuildNumber $env:APPVEYOR_BUILD_NUMBER -csproj "$env:APPVEYOR_BUILD_FOLDER\src\NetChris.Core\NetChris.Core\NetChris.Core.csproj" -commit $env:APPVEYOR_REPO_COMMIT
+
+build_script:
+- ps: >-
+    dotnet build --configuration ${env:CONFIGURATION} --verbosity ${env:MsBuildVerbosity} "${env:APPVEYOR_BUILD_FOLDER}\src\NetChris.Core\NetChris.Core.sln"
+
+test_script:
+- ps: >-
+    dotnet test "${env:APPVEYOR_BUILD_FOLDER}\src\NetChris.Core\NetChris.Core.UnitTests\NetChris.Core.UnitTests.csproj"
+
+after_build:
+- ps: >-
+    $env:PackFolder = "${env:APPVEYOR_BUILD_FOLDER}\pack\NetChris.Core\"
+
+    dotnet pack --configuration ${env:CONFIGURATION} --verbosity ${env:MsBuildVerbosity} --output "$env:PackFolder" "${env:APPVEYOR_BUILD_FOLDER}\src\NetChris.Core\NetChris.Core\NetChris.Core.csproj"
+
+artifacts:
+- path: '**\NetChris.Core.*.*.*.nupkg'
+  name: NetChris.Core.nupkg
+
+# TODO - Deploy
