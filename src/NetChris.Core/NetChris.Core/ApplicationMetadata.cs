@@ -3,7 +3,6 @@ using System.Reflection;
 
 namespace NetChris.Core
 {
-
     /// <summary>
     /// Provides basic application metadata.
     /// </summary>
@@ -43,11 +42,8 @@ namespace NetChris.Core
     /// </summary>
     /// <seealso cref="ApplicationMetadata{T}" />
     public abstract class ApplicationMetadata
+        : IApplicationMetadata
     {
-
-        // TODO 0000 IApplicationMetadata - Extract interface from AppMetadata
-
-
         private readonly Type _typeInAssembly;
 
         protected ApplicationMetadata(Type typeInAssembly)
@@ -68,14 +64,23 @@ namespace NetChris.Core
             protected set;
         }
 
-        // TODO 0000 IApplicationMetadata.ApplicationVersion
-        // TODO 0000 IApplicationMetadata.InformationalVersion
-        // TODO 0000 IApplicationMetadata.ExecutionInstanceId
-        // TODO 0000 IApplicationMetadata.ExecutionInstanceTimestamp (DateTimeOffset)
-        // TODO 0000 IApplicationMetadata.MachineLocalTimeZoneInfo
-        // TODO 0000 IApplicationMetadata.BuildIdentifier
-        // TODO 0000 IApplicationMetadata.Environment
-        // TODO 0000 IApplicationMetadata.MachineName
+        public string BuildIdentifier
+        {
+            get;
+            protected set;
+        }
+
+        public string Environment
+        {
+            get;
+            protected set;
+        }
+
+        public string MachineName
+        {
+            get;
+            protected set;
+        }
 
         public string ApplicationVersion
         {
@@ -98,6 +103,7 @@ namespace NetChris.Core
 
         private static readonly string _executionInstanceId
             = Guid.NewGuid().ToString();
+
 
         public string ExecutionInstanceId
         {
