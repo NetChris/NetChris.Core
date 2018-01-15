@@ -2,6 +2,7 @@
 
 namespace NetChris.Core
 {
+    // TODO 1000 - Consider re-organizing environment-specific information into an Environment property of type IEnvironment (to be defined)
     /// <summary>
     /// Defines basic metadata about an application,
     /// as well as some metadata about the specific
@@ -41,10 +42,10 @@ namespace NetChris.Core
         }
 
         /// <summary>
-        /// Gets the environment.
+        /// Gets the name of the environment.
         /// </summary>
-        /// <value>The environment.</value>
-        string Environment
+        /// <value>The name of the environment.</value>
+        string EnvironmentName
         {
             get;
         }
@@ -104,6 +105,137 @@ namespace NetChris.Core
         /// </summary>
         /// <value>The time zone of the machine running the application.</value>
         string MachineLocalTimeZone
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the fully qualified path of the current working directory.
+        /// </summary>
+        /// <value>The fully qualified path of the current working directory.</value>
+        string CurrentDirectory
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets a unique identifier for the current managed thread.
+        /// </summary>
+        /// <value>A unique identifier for the current managed thread.</value>
+        int CurrentManagedThreadId
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets whether the current operating system is a 64-bit operating system.
+        /// </summary>
+        /// <value><c>true</c> if the operating system is 64-bit; otherwise, <c>false</c>.</value>
+        bool Is64BitOperatingSystem
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets whether the current process is a 64-bit process.
+        /// </summary>
+        /// <value><c>true</c> if the process is 64-bit; otherwise, <c>false</c>.</value>
+        bool Is64BitProcess
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the operating system/platform.
+        /// </summary>
+        /// <value>The operating system/platform.</value>
+        string OSPlatform
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the operating system service pack.
+        /// </summary>
+        /// <value>The operating system service pack.</value>
+        string OSServicePack
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the concatenated string representation of the platform identifier, version, and service pack that are currently installed on the operating system.
+        /// </summary>
+        /// <value>The string representation of the values returned by the
+        /// System.OperatingSystem.Platform,
+        /// System.OperatingSystem.Version,
+        /// and System.OperatingSystem.ServicePack properties..</value>
+        string OSVersion
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the number of processors on the current machine.
+        /// </summary>
+        /// <value>
+        /// The 32-bit signed integer that specifies the number of processors on the current machine.
+        /// There is no default. If the current machine contains multiple processor groups, this
+        /// property returns the number of logical processors that are available for use by the
+        /// common language runtime (CLR).
+        /// </value>
+        int ProcessorCount
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the number of bytes in the operating system's memory page.
+        /// </summary>
+        /// <value>The number of bytes in the system memory page.</value>
+        int SystemPageSize
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the number of milliseconds elapsed since the system started.
+        /// </summary>
+        /// <value>
+        /// A 32-bit signed integer containing the amount of time in milliseconds
+        /// that has passed since the last time the computer was started.
+        /// </value>
+        int MillisecondsElapsedSinceSystemStart
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the user name currently logged on to the Windows operating system.
+        /// </summary>
+        /// <value>The user name of the person who is logged on to Windows.</value>
+        string UserName
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the version of the common language runtime.
+        /// </summary>
+        /// <value>The version of the common language runtime.</value>
+        string ClrVersion
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the amount of physical memory mapped to the process context.
+        /// </summary>
+        /// <value>
+        /// A 64-bit signed integer containing the number of bytes of
+        /// physical memory mapped to the process context.
+        /// </value>
+        long WorkingSet
         {
             get;
         }

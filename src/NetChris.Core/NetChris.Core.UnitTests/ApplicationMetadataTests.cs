@@ -10,7 +10,11 @@ namespace NetChris.Core.UnitTests
         {
             // Arrange
             ApplicationMetadata<ApplicationMetadataTests> appMetadata =
-                new ApplicationMetadata<ApplicationMetadataTests>("GroupNameDoesNotMatterForThisTest", environment: "UnitTestEnvironment", buildIdentifier: "Build12345");
+                new ApplicationMetadata<ApplicationMetadataTests>(
+                    "GroupNameDoesNotMatterForThisTest",
+                    environmentName: "UnitTestEnvironment",
+                    buildIdentifier: "Build12345");
+
             string expectedApplicationName = "NetChris.Core.UnitTests";
 
             // Act
@@ -26,8 +30,11 @@ namespace NetChris.Core.UnitTests
             // Arrange
             string expectedApplicationGroup = "App.Group";
             ApplicationMetadata<ApplicationMetadataTests> appMetadata =
-                new ApplicationMetadata<ApplicationMetadataTests>("AppNameDoesNotMatterForThisTest", expectedApplicationGroup,
-                    environment: "UnitTestEnvironment", buildIdentifier: "Build12345");
+                new ApplicationMetadata<ApplicationMetadataTests>(
+                    expectedApplicationGroup,
+                    "AppNameDoesNotMatterForThisTest",
+                    environmentName: "UnitTestEnvironment",
+                    buildIdentifier: "Build12345");
 
             // Act
             var applicationGroup = appMetadata.ApplicationGroup;
@@ -40,13 +47,11 @@ namespace NetChris.Core.UnitTests
         public void ApplicationVersion_is_formatted_correctly()
         {
             // Arrange
-            var applicationAssembly = typeof(ApplicationMetadataTests).Assembly;
-            var version = applicationAssembly.GetName().Version;
-            var expectedVersion = $"1.2.3.0";
+            var expectedVersion = "1.2.3.0";
 
             ApplicationMetadata<ApplicationMetadataTests> appMetadata =
                 new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter",
-                    environment: "UnitTestEnvironment", buildIdentifier: "Build12345");
+                    environmentName: "UnitTestEnvironment", buildIdentifier: "Build12345");
 
             // Act
             var applicationVersion = appMetadata.ApplicationVersion;
@@ -64,7 +69,7 @@ namespace NetChris.Core.UnitTests
 
             ApplicationMetadata<ApplicationMetadataTests> appMetadata =
                 new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter",
-                    environment: "UnitTestEnvironment", buildIdentifier: "Build12345");
+                    environmentName: "UnitTestEnvironment", buildIdentifier: "Build12345");
 
             // Act
             var applicationVersion = appMetadata.InformationalVersion;
@@ -78,10 +83,10 @@ namespace NetChris.Core.UnitTests
         {
             // Arrange
             ApplicationMetadata<ApplicationMetadataTests> appMetadata1 =
-                new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter1", environment: "UnitTestEnvironment", buildIdentifier: "Build12345");
+                new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter1", environmentName: "UnitTestEnvironment", buildIdentifier: "Build12345");
 
             ApplicationMetadata<ApplicationMetadataTests> appMetadata2 =
-                new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter2", environment: "UnitTestEnvironment", buildIdentifier: "Build12345");
+                new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter2", environmentName: "UnitTestEnvironment", buildIdentifier: "Build12345");
 
             // Act
             var executionInstanceId1 = appMetadata1.ExecutionInstanceId;
@@ -96,10 +101,10 @@ namespace NetChris.Core.UnitTests
         {
             // Arrange
             ApplicationMetadata<ApplicationMetadataTests> appMetadata1 =
-                new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter1", environment: "UnitTestEnvironment", buildIdentifier: "Build12345");
+                new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter1", environmentName: "UnitTestEnvironment", buildIdentifier: "Build12345");
 
             ApplicationMetadata<ApplicationMetadataTests> appMetadata2 =
-                new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter2", environment: "UnitTestEnvironment", buildIdentifier: "Build12345");
+                new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter2", environmentName: "UnitTestEnvironment", buildIdentifier: "Build12345");
 
             // Act
             var executionInstanceTimestamp1 = appMetadata1.ExecutionInstanceTimestamp;
@@ -114,10 +119,10 @@ namespace NetChris.Core.UnitTests
         {
             // Arrange
             ApplicationMetadata<ApplicationMetadataTests> appMetadata1 =
-                new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter1", environment: "UnitTestEnvironment", buildIdentifier: "Build12345");
+                new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter1", environmentName: "UnitTestEnvironment", buildIdentifier: "Build12345");
 
             ApplicationMetadata<ApplicationMetadataTests> appMetadata2 =
-                new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter2", environment: "UnitTestEnvironment", buildIdentifier: "Build12345");
+                new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter2", environmentName: "UnitTestEnvironment", buildIdentifier: "Build12345");
 
             // Act
             var timeZone1 = appMetadata1.MachineLocalTimeZone;
