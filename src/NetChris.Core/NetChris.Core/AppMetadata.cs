@@ -3,6 +3,7 @@ using System.Reflection;
 
 namespace NetChris.Core
 {
+
     /// <summary>
     /// Provides basic application metadata.
     /// </summary>
@@ -37,18 +38,24 @@ namespace NetChris.Core
         }
     }
 
+    // TODO 0000 rename to ApplicationMetadata
     /// <summary>
     /// Provides basic application metadata.  Meant to be used as the base type of <see cref="AppMetadata{T}" />.
     /// </summary>
     /// <seealso cref="AppMetadata{T}" />
     public abstract class AppMetadata
     {
+
+        // TODO 0000 IApplicationMetadata - Extract interface from AppMetadata
+
+
         private readonly Type _typeInAssembly;
 
         protected AppMetadata(Type typeInAssembly)
         {
             _typeInAssembly = typeInAssembly;
         }
+
 
         public string ApplicationName
         {
@@ -62,41 +69,65 @@ namespace NetChris.Core
             protected set;
         }
 
-        public string GetApplicationVersion()
+        // TODO 0000 IApplicationMetadata.ApplicationVersion
+        // TODO 0000 IApplicationMetadata.InformationalVersion
+        // TODO 0000 IApplicationMetadata.ExecutionInstanceId
+        // TODO 0000 IApplicationMetadata.ExecutionInstanceTimestamp (DateTimeOffset)
+        // TODO 0000 IApplicationMetadata.MachineLocalTimeZoneInfo
+        // TODO 0000 IApplicationMetadata.BuildIdentifier
+        // TODO 0000 IApplicationMetadata.Environment
+        // TODO 0000 IApplicationMetadata.MachineName
+
+        public string ApplicationVersion
         {
-            var applicationAssembly = Assembly.GetAssembly(_typeInAssembly);
-            var version = applicationAssembly.GetName().Version;
-            return $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+            get
+            {
+                var applicationAssembly = Assembly.GetAssembly(_typeInAssembly);
+                var version = applicationAssembly.GetName().Version;
+                return $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+            }
         }
 
-        public string GetInformationalVersion()
+        public string InformationalVersion
         {
-            var version = _typeInAssembly.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
-            return version?.InformationalVersion;
+            get
+            {
+                var version = _typeInAssembly.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+                return version?.InformationalVersion;
+            }
         }
 
-        private static readonly string ExecutionInstanceId
+        private static readonly string _executionInstanceId
             = Guid.NewGuid().ToString();
 
-        public string GetExecutionInstanceId()
+        public string ExecutionInstanceId
         {
-            return ExecutionInstanceId;
+            get
+            {
+                return _executionInstanceId;
+            }
         }
 
-        private static readonly DateTimeOffset ExecutionInstanceTimestamp
+        private static readonly DateTimeOffset _executionInstanceTimestamp
             = DateTimeOffset.Now;
 
-        public DateTimeOffset GetExecutionInstanceTimestamp()
+        public DateTimeOffset ExecutionInstanceTimestamp
         {
-            return ExecutionInstanceTimestamp;
+            get
+            {
+                return _executionInstanceTimestamp;
+            }
         }
 
-        private static readonly TimeZoneInfo MachineLocalTimeZone =
+        private static readonly TimeZoneInfo _machineLocalTimeZone =
             TimeZoneInfo.Local;
 
-        public TimeZoneInfo GetMachineLocalTimeZone()
+        public string MachineLocalTimeZone
         {
-            return MachineLocalTimeZone;
+            get
+            {
+                return _machineLocalTimeZone.Id;
+            }
         }
     }
 }

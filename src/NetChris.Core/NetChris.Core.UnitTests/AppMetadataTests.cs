@@ -45,7 +45,7 @@ namespace NetChris.Core.UnitTests
                 new AppMetadata<AppMetadataTests>("DoesNotMatter");
 
             // Act
-            var applicationVersion = appMetadata.GetApplicationVersion();
+            var applicationVersion = appMetadata.ApplicationVersion;
 
             // Assert
             applicationVersion.Should().Be(expectedVersion);
@@ -62,7 +62,7 @@ namespace NetChris.Core.UnitTests
                 new AppMetadata<AppMetadataTests>("DoesNotMatter");
 
             // Act
-            var applicationVersion = appMetadata.GetInformationalVersion();
+            var applicationVersion = appMetadata.InformationalVersion;
 
             // Assert
             applicationVersion.Should().Be(expectedVersion);
@@ -79,8 +79,8 @@ namespace NetChris.Core.UnitTests
                 new AppMetadata<AppMetadataTests>("DoesNotMatter2");
 
             // Act
-            var executionInstanceId1 = appMetadata1.GetExecutionInstanceId();
-            var executionInstanceId2 = appMetadata2.GetExecutionInstanceId();
+            var executionInstanceId1 = appMetadata1.ExecutionInstanceId;
+            var executionInstanceId2 = appMetadata2.ExecutionInstanceId;
 
             // Assert
             executionInstanceId1.Should().BeEquivalentTo(executionInstanceId2);
@@ -97,8 +97,8 @@ namespace NetChris.Core.UnitTests
                 new AppMetadata<AppMetadataTests>("DoesNotMatter2");
 
             // Act
-            var executionInstanceTimestamp1 = appMetadata1.GetExecutionInstanceTimestamp();
-            var executionInstanceTimestamp2 = appMetadata2.GetExecutionInstanceTimestamp();
+            var executionInstanceTimestamp1 = appMetadata1.ExecutionInstanceTimestamp;
+            var executionInstanceTimestamp2 = appMetadata2.ExecutionInstanceTimestamp;
 
             // Assert
             executionInstanceTimestamp1.ShouldBeEquivalentTo(executionInstanceTimestamp2);
@@ -115,8 +115,8 @@ namespace NetChris.Core.UnitTests
                 new AppMetadata<AppMetadataTests>("DoesNotMatter2");
 
             // Act
-            var timeZone1 = appMetadata1.GetMachineLocalTimeZone();
-            var timeZone2 = appMetadata2.GetMachineLocalTimeZone();
+            var timeZone1 = appMetadata1.MachineLocalTimeZone;
+            var timeZone2 = appMetadata2.MachineLocalTimeZone;
 
             // Assert
             timeZone1.ShouldBeEquivalentTo(timeZone2);
