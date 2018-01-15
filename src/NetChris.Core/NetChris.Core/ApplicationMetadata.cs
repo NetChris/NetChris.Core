@@ -15,10 +15,14 @@ namespace NetChris.Core
         /// </summary>
         /// <param name="applicationName">The application name.</param>
         /// <param name="applicationGroup">The application group.</param>
-        public ApplicationMetadata(string applicationName, string applicationGroup) : base(typeof(T))
+        public ApplicationMetadata(string applicationName, string applicationGroup,
+            string environment, string buildIdentifier) : base(typeof(T))
         {
             ApplicationName = applicationName;
             ApplicationGroup = applicationGroup;
+            BuildIdentifier = buildIdentifier;
+            Environment = environment;
+            BuildIdentifier = buildIdentifier;
         }
 
         /// <summary>
@@ -31,12 +35,14 @@ namespace NetChris.Core
         /// </para>
         /// </remarks>
         /// <param name="applicationGroupId">The application group identifier.</param>
-        public ApplicationMetadata(string applicationGroupId) :
-            this(typeof(T).Assembly.GetName().Name, applicationGroupId)
+        public ApplicationMetadata(string applicationGroupId,
+            string environment, string buildIdentifier) :
+            this(typeof(T).Assembly.GetName().Name, applicationGroupId, environment, buildIdentifier)
         {
         }
     }
 
+    /// <inheritdoc />
     /// <summary>
     /// Provides basic application metadata.  Meant to be used as the base type of <see cref="ApplicationMetadata{T}" />.
     /// </summary>
@@ -44,13 +50,16 @@ namespace NetChris.Core
     public abstract class ApplicationMetadata
         : IApplicationMetadata
     {
-        private readonly Type _typeInAssembly;
+        private readonly string _applicationVersionString;
+        private readonly string _informationalVersion;
 
         protected ApplicationMetadata(Type typeInAssembly)
         {
-            _typeInAssembly = typeInAssembly;
+            var version = typeInAssembly.Assembly.GetName().Version;
+            _applicationVersionString = $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+            var blerg = typeInAssembly.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+            _informationalVersion = blerg?.InformationalVersion;
         }
-
 
         public string ApplicationName
         {
@@ -82,13 +91,12 @@ namespace NetChris.Core
             protected set;
         }
 
+
         public string ApplicationVersion
         {
             get
             {
-                var applicationAssembly = Assembly.GetAssembly(_typeInAssembly);
-                var version = applicationAssembly.GetName().Version;
-                return $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+                return _applicationVersionString;
             }
         }
 
@@ -96,14 +104,12 @@ namespace NetChris.Core
         {
             get
             {
-                var version = _typeInAssembly.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
-                return version?.InformationalVersion;
+                return _informationalVersion;
             }
         }
 
         private static readonly string _executionInstanceId
             = Guid.NewGuid().ToString();
-
 
         public string ExecutionInstanceId
         {
