@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace NetChris.Core
 {
@@ -63,10 +64,15 @@ namespace NetChris.Core
 
         public string GetApplicationVersion()
         {
-            var applicationAssembly =
-                System.Reflection.Assembly.GetAssembly(_typeInAssembly);
+            var applicationAssembly = Assembly.GetAssembly(_typeInAssembly);
             var version = applicationAssembly.GetName().Version;
             return $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+        }
+
+        public string GetInformationalVersion()
+        {
+            var version = _typeInAssembly.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+            return version?.InformationalVersion;
         }
 
         private static readonly string ExecutionInstanceId

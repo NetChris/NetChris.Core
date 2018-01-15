@@ -52,6 +52,23 @@ namespace NetChris.Core.UnitTests
         }
 
         [Fact]
+        public void InformationalVersion_is_formatted_correctly()
+        {
+            // Arrange
+            // This is defined in the csproj properties
+            var expectedVersion = "1.2.3-alpha informational version";
+
+            AppMetadata<AppMetadataTests> appMetadata =
+                new AppMetadata<AppMetadataTests>("DoesNotMatter");
+
+            // Act
+            var applicationVersion = appMetadata.GetInformationalVersion();
+
+            // Assert
+            applicationVersion.Should().Be(expectedVersion);
+        }
+
+        [Fact]
         public void ExecutionInstanceId_should_stay_constant_over_instances()
         {
             // Arrange
