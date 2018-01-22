@@ -5,20 +5,26 @@ namespace NetChris.Core.UnitTests
 {
     public class ApplicationMetadataTests
     {
-        [Fact]
-        public void Automatic_ApplicationName_discern_should_work()
+        private readonly ApplicationMetadata<ApplicationMetadataTests> _appMetadata;
+
+        public ApplicationMetadataTests()
         {
             // Arrange
-            ApplicationMetadata<ApplicationMetadataTests> appMetadata =
+            _appMetadata =
                 new ApplicationMetadata<ApplicationMetadataTests>(
                     "GroupNameDoesNotMatterForThisTest",
                     environmentName: "UnitTestEnvironment",
                     buildIdentifier: "Build12345");
+        }
 
+        [Fact]
+        public void Automatic_ApplicationName_discern_should_work()
+        {
+            // Arrange
             string expectedApplicationName = "NetChris.Core.UnitTests";
 
             // Act
-            var applicationName = appMetadata.ApplicationName;
+            var applicationName = _appMetadata.ApplicationName;
 
             // Assert
             applicationName.Should().Be(expectedApplicationName);
@@ -29,15 +35,9 @@ namespace NetChris.Core.UnitTests
         {
             // Arrange
             string expectedApplicationGroup = "App.Group";
-            ApplicationMetadata<ApplicationMetadataTests> appMetadata =
-                new ApplicationMetadata<ApplicationMetadataTests>(
-                    expectedApplicationGroup,
-                    "AppNameDoesNotMatterForThisTest",
-                    environmentName: "UnitTestEnvironment",
-                    buildIdentifier: "Build12345");
 
             // Act
-            var applicationGroup = appMetadata.ApplicationGroup;
+            var applicationGroup = _appMetadata.ApplicationGroup;
 
             // Assert
             applicationGroup.Should().Be(expectedApplicationGroup);
@@ -49,12 +49,8 @@ namespace NetChris.Core.UnitTests
             // Arrange
             var expectedVersion = "1.2.3.0";
 
-            ApplicationMetadata<ApplicationMetadataTests> appMetadata =
-                new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter",
-                    environmentName: "UnitTestEnvironment", buildIdentifier: "Build12345");
-
             // Act
-            var applicationVersion = appMetadata.ApplicationVersion;
+            var applicationVersion = _appMetadata.ApplicationVersion;
 
             // Assert
             applicationVersion.Should().Be(expectedVersion);
@@ -67,12 +63,8 @@ namespace NetChris.Core.UnitTests
             // This is defined in the csproj properties
             var expectedVersion = "1.2.3-alpha informational version";
 
-            ApplicationMetadata<ApplicationMetadataTests> appMetadata =
-                new ApplicationMetadata<ApplicationMetadataTests>("DoesNotMatter",
-                    environmentName: "UnitTestEnvironment", buildIdentifier: "Build12345");
-
             // Act
-            var applicationVersion = appMetadata.InformationalVersion;
+            var applicationVersion = _appMetadata.InformationalVersion;
 
             // Assert
             applicationVersion.Should().Be(expectedVersion);
@@ -131,5 +123,13 @@ namespace NetChris.Core.UnitTests
             // Assert
             timeZone1.ShouldBeEquivalentTo(timeZone2);
         }
+
+        [Fact]
+        public void MillisecondsElapsedSinceSystemStart_should_be_non_zero()
+        {
+            _appMetadata.MillisecondsElapsedSinceSystemStart.Should().BeGreaterThan(0);
+        }
+
+        // TODO 0000 - Other numerics should be non-zero
     }
 }
