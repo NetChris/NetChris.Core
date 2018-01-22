@@ -34,7 +34,7 @@ namespace NetChris.Core.UnitTests
         public void ApplicationGroup_should_flow_through()
         {
             // Arrange
-            string expectedApplicationGroup = "App.Group";
+            string expectedApplicationGroup = "GroupNameDoesNotMatterForThisTest";
 
             // Act
             var applicationGroup = _appMetadata.ApplicationGroup;
