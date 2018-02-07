@@ -1,9 +1,8 @@
 ﻿using System;
-
 using FluentAssertions;
 using Xunit;
 
-namespace NetChris.Identity.UnitTests.CompactGuid
+namespace NetChris.Core.UnitTests
 {
     public class CompactGuid_should
     {
