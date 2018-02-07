@@ -1,2 +1,12 @@
 # We'll use the "pack" folder for testing "dotnet pack"
 pack/
+
+.vs/
+_NCrunch*/
+_ReSharper*/
+
+[Bb]in/
+[Oo]bj/
+
+*.user
+*.suo
