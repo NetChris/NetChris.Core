@@ -43,37 +43,6 @@ namespace NetChris.Core.Values
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CompactGuid"/> struct.
-        /// </summary>
-        /// <param name="stringValue">The string value.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="stringValue"/> is null</exception>
-        /// <exception cref="FormatException"><paramref name="stringValue"/> is not a correctly-formatted string representation of a <see cref="Guid"/></exception>
-        /// <exception cref="OverflowException"><paramref name="stringValue"/> is not a correctly-formatted string representation of a <see cref="Guid"/></exception>
-        public CompactGuid(string stringValue)
-        {
-            if (stringValue == null)
-            {
-                throw new ArgumentNullException(nameof(stringValue));
-            }
-
-            try
-            {
-                Guid = new Guid(stringValue);
-            }
-            catch (FormatException exc)
-            {
-                throw new FormatException($"Could not convert \"{stringValue}\" to a {nameof(CompactGuid)}.  It must be in a form that is convertible to a {nameof(Guid)}", exc);
-            }
-            catch (OverflowException exc)
-            {
-                // Unsure how to get this to happen.
-                throw new OverflowException($"Could not convert \"{stringValue}\" to a {nameof(CompactGuid)}.  It must be in a form that is convertible to a {nameof(Guid)}", exc);
-            }
-
-            _compactGuidString = GetCompactGuidString(Guid);
-        }
-
-        /// <summary>
         /// Gets the <see cref="Guid"/> underlying the <see cref="CompactGuid"/>.
         /// </summary>
         /// <value>The <see cref="Guid"/> underlying the <see cref="CompactGuid"/>.</value>
@@ -89,6 +58,40 @@ namespace NetChris.Core.Values
         public override string ToString()
         {
             return _compactGuidString;
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current instance.</param>
+        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is CompactGuid otherCompactGuid)
+            {
+                return Equals(otherCompactGuid);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Returns whether this <see cref="CompactGuid"/> equals another <see cref="CompactGuid"/>
+        /// </summary>
+        /// <param name="other">The other <see cref="CompactGuid"/>.</param>
+        /// <returns><c>true</c> if this <see cref="CompactGuid"/> equals <paramref name="other"/>, <c>false</c> otherwise.</returns>
+        public bool Equals(CompactGuid other)
+        {
+            return Guid.Equals(other);
+        }
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        public override int GetHashCode()
+        {
+            return Guid.GetHashCode();
         }
 
         /// <summary>

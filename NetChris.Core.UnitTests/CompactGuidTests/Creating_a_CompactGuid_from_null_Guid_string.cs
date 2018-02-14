@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentAssertions;
+using NetChris.Core.Extensions;
 using Xunit;
 
 namespace NetChris.Core.UnitTests.CompactGuidTests
@@ -12,7 +13,7 @@ namespace NetChris.Core.UnitTests.CompactGuidTests
         {
             try
             {
-                new Values.CompactGuid((string)null);
+                ((string)null).ToCompactGuid();
             }
             catch (Exception exc)
             {

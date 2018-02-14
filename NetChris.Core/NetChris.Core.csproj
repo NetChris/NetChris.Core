@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NetChris.Core</PackageId>
-    <Version>3.0.0</Version>
+    <Version>4.0.0</Version>
     <Authors>NetChris</Authors>
     <Company>NetChris Corp.</Company>
     <Copyright>(c) 2018 NetChris Corp.</Copyright>
@@ -12,7 +12,7 @@
     <PackageIconUrl>https://netchris.blob.core.windows.net/public/static/icons/netchris.64.png</PackageIconUrl>
     <PackageTags>netchris dotnet-core diagnostics</PackageTags>
     <Description>Base metadata and operational classes for .NET Core development.</Description>
-    <PackageReleaseNotes>Remove implicit string -> CompactGuid conversion</PackageReleaseNotes>
+    <PackageReleaseNotes>Remove string CompactGuid constructor</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
