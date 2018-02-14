@@ -56,10 +56,20 @@ namespace NetChris.Core.Values
                 throw new ArgumentNullException(nameof(stringValue));
             }
 
-            // TODO 0000 - Ensure FormatException is thrown
-            // TODO 0000 - Ensure OverflowException is thrown
+            try
+            {
+                Guid = new Guid(stringValue);
+            }
+            catch (FormatException exc)
+            {
+                throw new FormatException($"Could not convert \"{stringValue}\" to a {nameof(CompactGuid)}.  It must be in a form that is convertible to a {nameof(Guid)}", exc);
+            }
+            catch (OverflowException exc)
+            {
+                // Unsure how to get this to happen.
+                throw new OverflowException($"Could not convert \"{stringValue}\" to a {nameof(CompactGuid)}.  It must be in a form that is convertible to a {nameof(Guid)}", exc);
+            }
 
-            Guid = new Guid(stringValue);
             _compactGuidString = GetCompactGuidString(Guid);
         }
 
@@ -89,21 +99,6 @@ namespace NetChris.Core.Values
         public static implicit operator string(CompactGuid compactGuid)
         {
             return compactGuid._compactGuidString;
-        }
-
-        /// <summary>
-        /// Performs an implicit conversion from <see cref="string" /> to <see cref="CompactGuid" />.
-        /// </summary>
-        /// <param name="stringValue">The string value.</param>
-        /// <returns>The resultant <see cref="CompactGuid" />.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="stringValue"/> is null</exception>
-        /// <exception cref="FormatException"><paramref name="stringValue"/> is not a correctly-formatted string representation of a <see cref="Guid"/></exception>
-        /// <exception cref="OverflowException"><paramref name="stringValue"/> is not a correctly-formatted string representation of a <see cref="Guid"/></exception>
-        public static implicit operator CompactGuid(string stringValue)
-        {
-            // TODO 0000 - Test this to make sure that, should a bad value be used, that a _descriptive_ exception is thrown:
-            // "The string value used in place of CompactGuid, {stringValue}, was invalid: null, empty, or otherwise unparseable as a Guid"
-            return new CompactGuid(stringValue);
         }
 
         /// <summary>
