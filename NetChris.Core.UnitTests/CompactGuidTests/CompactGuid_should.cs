@@ -1,5 +1,7 @@
 ﻿using System;
 using FluentAssertions;
+using NetChris.Core.Extensions;
+using NetChris.Core.Values;
 using Xunit;
 
 namespace NetChris.Core.UnitTests.CompactGuidTests
@@ -76,12 +78,27 @@ namespace NetChris.Core.UnitTests.CompactGuidTests
             compactGuidFromGuid.Guid.Should().Be(newGuid);
         }
 
-
         [Fact]
         public void Be_createable_from_Guid_string()
         {
-            var compactGuidFromGuidString = new Values.CompactGuid(SourceGuidAsString);
+            var compactGuidFromGuidString = SourceGuidAsString.ToCompactGuid();
             compactGuidFromGuidString.Guid.Should().Be(_sourceGuid);
+        }
+
+        [Fact]
+        public void When_created_anew_be_different_each_time()
+        {
+            var newCompactGuid1 = CompactGuid.New();
+            var newCompactGuid2 = CompactGuid.New();
+            newCompactGuid1.Should().NotBe(newCompactGuid2);
+        }
+
+        [Fact]
+        public void Have_the_same_hash_code_as_Guid()
+        {
+            Guid sourceGuid = Guid.NewGuid();
+            var compactGuid = new CompactGuid(sourceGuid);
+            compactGuid.GetHashCode().Should().Be(sourceGuid.GetHashCode());
         }
     }
 }
