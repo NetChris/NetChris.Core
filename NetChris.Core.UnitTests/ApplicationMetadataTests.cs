@@ -130,6 +130,22 @@ namespace NetChris.Core.UnitTests
             _appMetadata.MillisecondsElapsedSinceSystemStart.Should().BeGreaterThan(0);
         }
 
-        // TODO 0000 - Other numerics should be non-zero
+        [Fact]
+        public void ProcessorCount_should_be_non_zero()
+        {
+            _appMetadata.ProcessorCount.Should().BeGreaterThan(0);
+        }
+
+        [Fact]
+        public void SystemPageSize_should_be_non_zero()
+        {
+            _appMetadata.SystemPageSize.Should().BeGreaterThan(0);
+        }
+
+        [Fact]
+        public void WorkingSet_should_be_non_zero()
+        {
+            _appMetadata.WorkingSet.Should().BeGreaterThan(0);
+        }
     }
 }
