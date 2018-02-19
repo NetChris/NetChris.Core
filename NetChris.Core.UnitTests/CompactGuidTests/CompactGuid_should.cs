@@ -11,13 +11,13 @@ namespace NetChris.Core.UnitTests.CompactGuidTests
         private const string SourceGuidAsString = "5D8DA2CF-4801-48F1-BE59-42FA5A986EB9";
         private const string SourceGuidAsCompactGuidString = "5d8da2cf480148f1be5942fa5a986eb9";
         private readonly Guid _sourceGuid;
-        private readonly Values.CompactGuid _compactGuid;
+        private readonly CompactGuid _compactGuid;
 
         public CompactGuid_should()
         {
             // Arrange
             _sourceGuid = new Guid(SourceGuidAsString);
-            _compactGuid = new Values.CompactGuid(_sourceGuid);
+            _compactGuid = new CompactGuid(_sourceGuid);
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace NetChris.Core.UnitTests.CompactGuidTests
         public void Be_implicitly_convertible_from_Guid()
         {
             // Act
-            Values.CompactGuid implicitValue = _sourceGuid;
+            CompactGuid implicitValue = _sourceGuid;
 
             // Assert
             implicitValue.Should().Be(_compactGuid);
@@ -74,7 +74,7 @@ namespace NetChris.Core.UnitTests.CompactGuidTests
         public void Be_createable_from_Guid()
         {
             var newGuid = Guid.NewGuid();
-            Values.CompactGuid compactGuidFromGuid = new Values.CompactGuid(newGuid);
+            var compactGuidFromGuid = new CompactGuid(newGuid);
             compactGuidFromGuid.Guid.Should().Be(newGuid);
         }
 
