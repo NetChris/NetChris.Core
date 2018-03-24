@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetChris.Core", "NetChris.C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "!AppVeyor", "!AppVeyor", "{4B8FE7A4-5575-4174-8D7C-19FE48C9A2E1}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\appveyor.yml = ..\..\appveyor.yml
+		appveyor.yml = appveyor.yml
 	EndProjectSection
 EndProject
 Global
