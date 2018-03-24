@@ -21,16 +21,30 @@ namespace NetChris.Core.Extensions
         /// </summary>
         /// <remarks>
         /// <para>
-        /// This is a simple pipe through to <see cref="Guid.Parse(string)"/> so <paramref name="value"/> 
+        /// This is a simple pipe through to <see cref="Guid.Parse(string)"/> so <paramref name="value"/>
         /// must be parseable as a <see cref="Guid"/>.
         /// </para>
         /// </remarks>
         /// <param name="value">The value.</param>
+        /// <exception cref="ArgumentNullException">value is null</exception>
+        /// <exception cref="FormatException">value is not parseable as a <see cref="Guid"/></exception>
         public static CompactGuid ToCompactGuid(this string value)
         {
-            var guid = Guid.Parse(value);
-            var result = new CompactGuid(guid);
-            return result;
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value), $"{nameof(value)} used for {nameof(ToCompactGuid)} cannot be null.");
+            }
+
+            try
+            {
+                var guid = Guid.Parse(value);
+                var result = new CompactGuid(guid);
+                return result;
+            }
+            catch (FormatException)
+            {
+                throw new FormatException($"{nameof(value)} (\"{value}\") is not parseable as a {nameof(Guid)}");
+            }
         }
     }
 }
