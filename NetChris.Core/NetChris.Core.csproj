@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NetChris.Core</PackageId>
-    <Version>4.1.1</Version>
+    <Version>4.2.0</Version>
     <Authors>NetChris</Authors>
     <Company>NetChris Corp.</Company>
     <Copyright>(c) 2018 NetChris Corp.</Copyright>
@@ -10,9 +10,9 @@
     <RepositoryUrl>https://gitlab.com/NetChris/NetChris.Core</RepositoryUrl>
     <RepositoryType>GitLab</RepositoryType>
     <PackageIconUrl>https://netchris.blob.core.windows.net/public/static/icons/netchris.64.png</PackageIconUrl>
-    <PackageTags>netchris dotnet-core diagnostics</PackageTags>
+    <PackageTags>netchris dotnet-core</PackageTags>
     <Description>Base metadata and operational classes for .NET Core development.</Description>
-    <PackageReleaseNotes>More explicit about exceptions from ToCompactGuid()</PackageReleaseNotes>
+    <PackageReleaseNotes>Add CompactGuid.Length</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

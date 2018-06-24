@@ -123,5 +123,17 @@ namespace NetChris.Core.Values
         {
             return new CompactGuid(guid);
         }
+
+        /// <summary>
+        /// The character length of a <see cref="CompactGuid"/>.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This is useful for such purposes as setting
+        /// length requirements on data transfer objects
+        /// where the transfer format is a string.
+        /// </para>
+        /// </remarks>
+        public const int CharacterLength = 32;
     }
 }
