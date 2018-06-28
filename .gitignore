@@ -2,6 +2,7 @@
 pack/
 
 .vs/
+.vscode/
 _NCrunch*/
 _ReSharper*/
 
