@@ -35,10 +35,6 @@ after_build:
 artifacts:
 - path: '**\NetChris.Core.*.*.*.nupkg'
   name: NetChris.Core.nupkg
-- path: VersionCSPROJ.ps1
-  name: VersionCSPROJ.ps1
-- path: BuildRename.ps1
-  name: BuildRename.ps1
 
 deploy:
 - provider: Environment
