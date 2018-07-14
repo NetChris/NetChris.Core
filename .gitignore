@@ -11,3 +11,5 @@ _ReSharper*/
 
 *.user
 *.suo
+*.ncrunchsolution
+*.ncrunchproject
