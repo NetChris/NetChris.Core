@@ -135,5 +135,15 @@ namespace NetChris.Core.Values
         /// </para>
         /// </remarks>
         public const int CharacterLength = 32;
+
+        // From https://stackoverflow.com/a/11040993/208990, adapted to handle mixed-case within the regex itself and differing starting/ending brackets/parens
+        /// <summary>
+        /// A regular expression which represents the acceptable values of <see cref="CompactGuid"/>
+        /// </summary>
+        /// <remarks>
+        /// Although ugly, this keeps to a 'pure' RegEx format, avoiding conditionals.
+        /// </remarks>
+        public const string RegularExpression =
+            @"^\{[0-9A-Fa-f]{8}[-]?([0-9A-Fa-f]{4}[-]?){3}[0-9A-Fa-f]{12}\}$|^\([0-9A-Fa-f]{8}[-]?([0-9A-Fa-f]{4}[-]?){3}[0-9A-Fa-f]{12}\)$|^[0-9A-Fa-f]{8}[-]?([0-9A-Fa-f]{4}[-]?){3}[0-9A-Fa-f]{12}$";
     }
 }

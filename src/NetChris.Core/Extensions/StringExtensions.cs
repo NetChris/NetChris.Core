@@ -12,8 +12,7 @@ namespace NetChris.Core.Extensions
         /// <returns><c>true</c> if a string can be represented as a <see cref="Values.CompactGuid"/>; otherwise, <c>false</c>.</returns>
         public static bool CanBeConvertedToCompactGuid(this string value)
         {
-            bool result = Guid.TryParse(value, out var outGuid);
-            return result;
+            return System.Text.RegularExpressions.Regex.IsMatch(value, CompactGuid.RegularExpression);
         }
 
         /// <summary>
