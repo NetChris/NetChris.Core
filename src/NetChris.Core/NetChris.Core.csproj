@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NetChris.Core</PackageId>
-    <Version>4.2.0</Version>
+    <Version>4.3.0</Version>
     <Authors>NetChris</Authors>
     <Company>NetChris Corp.</Company>
     <Copyright>(c) 2018 NetChris Corp.</Copyright>
@@ -12,7 +12,9 @@
     <PackageIconUrl>https://netchris.blob.core.windows.net/public/static/icons/netchris.64.png</PackageIconUrl>
     <PackageTags>netchris dotnet-core</PackageTags>
     <Description>Base metadata and operational classes for .NET Core development.</Description>
-    <PackageReleaseNotes>Add CompactGuid.Length</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      Add CompactGuid.RegularExpression
+    </PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
