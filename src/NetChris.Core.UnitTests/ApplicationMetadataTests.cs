@@ -125,12 +125,6 @@ namespace NetChris.Core.UnitTests
         }
 
         [Fact]
-        public void MillisecondsElapsedSinceSystemStart_should_be_non_zero()
-        {
-            _appMetadata.MillisecondsElapsedSinceSystemStart.Should().BeGreaterThan(0);
-        }
-
-        [Fact]
         public void ProcessorCount_should_be_non_zero()
         {
             _appMetadata.ProcessorCount.Should().BeGreaterThan(0);
