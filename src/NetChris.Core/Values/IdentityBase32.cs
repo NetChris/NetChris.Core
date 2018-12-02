@@ -77,6 +77,7 @@ namespace NetChris.Core.Values
                 x *= x;
                 power >>= 1;
             }
+
             return result;
         }
 
@@ -101,16 +102,17 @@ namespace NetChris.Core.Values
             }
 
             ulong result = 0;
-            int power = 0;
+            int power = 1;
 
-            for (int i = identityBase32AsString.Length-1; i >= 0; i--)
+            for (int i = identityBase32AsString.Length - 1; i >= 0; i--)
             {
                 ulong number = CaseInsensitiveCharsToIntMap.GetInt(identityBase32AsString[i]);
                 if (number > 0)
                 {
                     result += IntPositivePow(number, (uint) power);
                 }
-                power--;
+
+                power++;
             }
 
             return result;
@@ -128,7 +130,7 @@ namespace NetChris.Core.Values
                 throw new ArgumentOutOfRangeException(nameof(value), $"{nameof(value)} may not be negative");
             }
 
-            return new IdentityBase32((ulong)value);
+            return new IdentityBase32((ulong) value);
         }
 
         public static implicit operator IdentityBase32(long value)
@@ -138,7 +140,7 @@ namespace NetChris.Core.Values
                 throw new ArgumentOutOfRangeException(nameof(value), $"{nameof(value)} may not be negative");
             }
 
-            return new IdentityBase32((ulong)value);
+            return new IdentityBase32((ulong) value);
         }
 
         public static implicit operator IdentityBase32(string encodedValue)
