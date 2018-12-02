@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NetChris.Core</PackageId>
-    <Version>4.5.1</Version>
+    <Version>4.5.0</Version>
     <Authors>NetChris</Authors>
     <Company>NetChris Corp.</Company>
     <Copyright>(c) 2018 NetChris Corp.</Copyright>
