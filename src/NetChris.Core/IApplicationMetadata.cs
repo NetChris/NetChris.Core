@@ -118,7 +118,7 @@ namespace NetChris.Core
             get;
         }
 
-        // TODO 0000 - Remove this.  This will change over the course of execution.
+        // TODO 1000 - Remove this.  This will change over the course of execution.
         /// <summary>
         /// Gets a unique identifier for the current managed thread.
         /// </summary>
@@ -190,7 +190,7 @@ namespace NetChris.Core
             get;
         }
 
-        // TODO 0000 - Remove this.  This will change over the course of execution.
+        // TODO 1000 - Remove this.  This will change over the course of execution.
         /// <summary>
         /// Gets the number of bytes in the operating system's memory page.
         /// </summary>
@@ -230,7 +230,7 @@ namespace NetChris.Core
             get;
         }
 
-        // TODO 0000 - Remove this.  This will change over the course of execution.
+        // TODO 1000 - Remove this.  This will change over the course of execution.
         /// <summary>
         /// Gets the amount of physical memory mapped to the process context.
         /// </summary>
@@ -243,6 +243,6 @@ namespace NetChris.Core
             get;
         }
 
-        // TODO 0000 - Add a property that indicates the time at which the IApplicationMetadata was instantiated, a good indicator of when the application started.
+        // TODO 1000 - Add a property that indicates the time at which the IApplicationMetadata was instantiated, a good indicator of when the application started.
     }
 }
