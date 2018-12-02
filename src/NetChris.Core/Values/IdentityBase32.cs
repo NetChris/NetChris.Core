@@ -80,19 +80,19 @@ namespace NetChris.Core.Values
             return result;
         }
 
-        private static IdentityBase32 FromString(string crockfordBase32AsString)
+        private static IdentityBase32 FromString(string identityBase32AsString)
         {
-            if (crockfordBase32AsString == null)
+            if (identityBase32AsString == null)
             {
-                throw new ArgumentNullException(nameof(crockfordBase32AsString));
+                throw new ArgumentNullException(nameof(identityBase32AsString));
             }
 
-            if (string.IsNullOrWhiteSpace(crockfordBase32AsString))
+            if (string.IsNullOrWhiteSpace(identityBase32AsString))
             {
-                throw new ArgumentOutOfRangeException(nameof(crockfordBase32AsString));
+                throw new ArgumentOutOfRangeException(nameof(identityBase32AsString));
             }
 
-            foreach (var character in crockfordBase32AsString)
+            foreach (var character in identityBase32AsString)
             {
                 if (!CaseInsensitiveCharsToIntMap.IsMapped(character))
                 {
@@ -103,9 +103,9 @@ namespace NetChris.Core.Values
             ulong result = 0;
             int power = 0;
 
-            for (int i = crockfordBase32AsString.Length-1; i >= 0; i--)
+            for (int i = identityBase32AsString.Length-1; i >= 0; i--)
             {
-                ulong number = CaseInsensitiveCharsToIntMap.GetInt(crockfordBase32AsString[i]);
+                ulong number = CaseInsensitiveCharsToIntMap.GetInt(identityBase32AsString[i]);
                 if (number > 0)
                 {
                     result += IntPositivePow(number, (uint) power);
