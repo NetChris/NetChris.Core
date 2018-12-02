@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NetChris.Core</PackageId>
-    <Version>4.4.0</Version>
+    <Version>4.5.0</Version>
     <Authors>NetChris</Authors>
     <Company>NetChris Corp.</Company>
     <Copyright>(c) 2018 NetChris Corp.</Copyright>
@@ -13,7 +13,7 @@
     <PackageTags>netchris dotnet-core</PackageTags>
     <Description>Base metadata and operational classes for .NET Core development.</Description>
     <PackageReleaseNotes>
-      Add SimpleResult
+      Add IdentityBase32
     </PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
