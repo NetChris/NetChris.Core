@@ -101,14 +101,16 @@ namespace NetChris.Core.Values
             }
 
             ulong result = 0;
+            int power = 0;
 
-            for (int i = 0; i < crockfordBase32AsString.Length; i++)
+            for (int i = crockfordBase32AsString.Length-1; i >= 0; i--)
             {
                 ulong number = CaseInsensitiveCharsToIntMap.GetInt(crockfordBase32AsString[i]);
-                if (number != 0)
+                if (number > 0)
                 {
-                    result += IntPositivePow(number, (uint)i);
+                    result += IntPositivePow(number, (uint) power);
                 }
+                power--;
             }
 
             return result;
