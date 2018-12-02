@@ -102,16 +102,14 @@ namespace NetChris.Core.Values
             }
 
             ulong result = 0;
-            int power = 1;
+            int power = 0;
 
             for (int i = identityBase32AsString.Length - 1; i >= 0; i--)
             {
                 ulong number = CaseInsensitiveCharsToIntMap.GetInt(identityBase32AsString[i]);
-                if (number > 0)
-                {
-                    result += IntPositivePow(number, (uint) power);
-                }
-
+                ulong base32 = IntPositivePow(32, (uint) power);
+                ulong addition = number * base32;
+                result += addition;
                 power++;
             }
 
