@@ -151,6 +151,7 @@ namespace NetChris.Core.UnitTests.IdentityBase32Tests
         [InlineData("I", 1)]
         [InlineData("l", 1)]
         [InlineData("L", 1)]
+        [InlineData("6cp2", 209602)]
         public void Be_expected_integer_values_from_known_strings(string presentedString, ulong expectedNumber)
         {
             IdentityBase32 value = presentedString;

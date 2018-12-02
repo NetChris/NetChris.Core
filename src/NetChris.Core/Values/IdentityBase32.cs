@@ -77,22 +77,23 @@ namespace NetChris.Core.Values
                 x *= x;
                 power >>= 1;
             }
+
             return result;
         }
 
-        private static IdentityBase32 FromString(string crockfordBase32AsString)
+        private static IdentityBase32 FromString(string identityBase32AsString)
         {
-            if (crockfordBase32AsString == null)
+            if (identityBase32AsString == null)
             {
-                throw new ArgumentNullException(nameof(crockfordBase32AsString));
+                throw new ArgumentNullException(nameof(identityBase32AsString));
             }
 
-            if (string.IsNullOrWhiteSpace(crockfordBase32AsString))
+            if (string.IsNullOrWhiteSpace(identityBase32AsString))
             {
-                throw new ArgumentOutOfRangeException(nameof(crockfordBase32AsString));
+                throw new ArgumentOutOfRangeException(nameof(identityBase32AsString));
             }
 
-            foreach (var character in crockfordBase32AsString)
+            foreach (var character in identityBase32AsString)
             {
                 if (!CaseInsensitiveCharsToIntMap.IsMapped(character))
                 {
@@ -101,14 +102,15 @@ namespace NetChris.Core.Values
             }
 
             ulong result = 0;
+            int power = 0;
 
-            for (int i = 0; i < crockfordBase32AsString.Length; i++)
+            for (int i = identityBase32AsString.Length - 1; i >= 0; i--)
             {
-                ulong number = CaseInsensitiveCharsToIntMap.GetInt(crockfordBase32AsString[i]);
-                if (number != 0)
-                {
-                    result += IntPositivePow(number, (uint)i);
-                }
+                ulong number = CaseInsensitiveCharsToIntMap.GetInt(identityBase32AsString[i]);
+                ulong base32 = IntPositivePow(32, (uint) power);
+                ulong addition = number * base32;
+                result += addition;
+                power++;
             }
 
             return result;
@@ -126,7 +128,7 @@ namespace NetChris.Core.Values
                 throw new ArgumentOutOfRangeException(nameof(value), $"{nameof(value)} may not be negative");
             }
 
-            return new IdentityBase32((ulong)value);
+            return new IdentityBase32((ulong) value);
         }
 
         public static implicit operator IdentityBase32(long value)
@@ -136,7 +138,7 @@ namespace NetChris.Core.Values
                 throw new ArgumentOutOfRangeException(nameof(value), $"{nameof(value)} may not be negative");
             }
 
-            return new IdentityBase32((ulong)value);
+            return new IdentityBase32((ulong) value);
         }
 
         public static implicit operator IdentityBase32(string encodedValue)
