@@ -1,20 +1,22 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>NetChris.Core</PackageId>
-    <Version>4.5.0</Version>
+
+    <MajorVersion>4</MajorVersion>
+    <MinorVersion>6</MinorVersion>
+    <PatchVersion Condition="'$(PatchVersion)' == ''">0</PatchVersion>
+    <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
+    
     <Authors>NetChris</Authors>
     <Company>NetChris Corp.</Company>
-    <Copyright>(c) 2018 NetChris Corp.</Copyright>
-    <PackageProjectUrl>https://gitlab.com/NetChris/NetChris.Core/wikis/home</PackageProjectUrl>
-    <RepositoryUrl>https://gitlab.com/NetChris/NetChris.Core</RepositoryUrl>
+    <Copyright>(c) 2020 NetChris Corp.</Copyright>
+    <PackageProjectUrl>https://gitlab.com/cssl/NetChris/framework/NetChris.Core/-/wikis/home</PackageProjectUrl>
+    <RepositoryUrl>https://gitlab.com/cssl/NetChris/framework/NetChris.Core</RepositoryUrl>
     <RepositoryType>GitLab</RepositoryType>
-    <PackageIconUrl>https://netchris.blob.core.windows.net/public/static/icons/netchris.64.png</PackageIconUrl>
+    <PackageIcon>nugeticon.png</PackageIcon>
     <PackageTags>netchris dotnet-core</PackageTags>
     <Description>Base metadata and operational classes for .NET Core development.</Description>
-    <PackageReleaseNotes>
-      Fix IdentityBase32 string-to-value calculation
-    </PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -24,4 +26,8 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="images/nugeticon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
 </Project>
