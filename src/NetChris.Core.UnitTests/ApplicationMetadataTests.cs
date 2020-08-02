@@ -103,7 +103,7 @@ namespace NetChris.Core.UnitTests
             var executionInstanceTimestamp2 = appMetadata2.ExecutionInstanceTimestamp;
 
             // Assert
-            executionInstanceTimestamp1.ShouldBeEquivalentTo(executionInstanceTimestamp2);
+            executionInstanceTimestamp1.Should().Be(executionInstanceTimestamp2);
         }
 
         [Fact]
@@ -121,7 +121,7 @@ namespace NetChris.Core.UnitTests
             var timeZone2 = appMetadata2.MachineLocalTimeZone;
 
             // Assert
-            timeZone1.ShouldBeEquivalentTo(timeZone2);
+            timeZone1.Should().Be(timeZone2);
         }
 
         [Fact]

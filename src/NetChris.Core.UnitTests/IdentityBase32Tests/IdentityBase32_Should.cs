@@ -34,7 +34,7 @@ namespace NetChris.Core.UnitTests.IdentityBase32Tests
 #pragma warning restore 219
             };
 
-            action.ShouldThrow<ArgumentOutOfRangeException>();
+            action.Should().Throw<ArgumentOutOfRangeException>();
         }
 
         [Fact]
@@ -47,7 +47,7 @@ namespace NetChris.Core.UnitTests.IdentityBase32Tests
 #pragma warning restore 219
             };
 
-            action.ShouldThrow<ArgumentOutOfRangeException>();
+            action.Should().Throw<ArgumentOutOfRangeException>();
         }
 
         [Fact]
@@ -60,7 +60,7 @@ namespace NetChris.Core.UnitTests.IdentityBase32Tests
 #pragma warning restore 219
             };
 
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Theory]
@@ -76,7 +76,7 @@ namespace NetChris.Core.UnitTests.IdentityBase32Tests
                 IdentityBase32 identityBase32 = disallowedCharacter.ToString();
             };
 
-            action.ShouldThrow<FormatException>();
+            action.Should().Throw<FormatException>();
         }
 
         [Theory]
