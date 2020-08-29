@@ -2,7 +2,7 @@
 
 namespace NetChris.Core.Values
 {
-    public class CaseInsensitiveCharsToIntMap
+    internal class CaseInsensitiveCharsToIntMap
     {
         private readonly IDictionary<char, ulong> _charToIntMap;
         private readonly IDictionary<ulong, char> _intToCharMap;

@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <!-- Packaging metadata properties - Organizational static - unlikely to change -->  
+  <PropertyGroup>
+    <Authors>Chris Simmons</Authors>
+
+    <Company>NetChris Corp.</Company>
+    <Copyright>(c) 2020 NetChris Corp.</Copyright>
+    <PackageIcon>nuget-icon.png</PackageIcon>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <!-- Packaging metadata properties - Project static - unlikely to change over the course of the project's lifetime -->  
+  <PropertyGroup>
+    <PackageId>NetChris.Core</PackageId>
+    <Title>NetChris .NET Core Library</Title>
+    <Description>Base metadata and operational classes for .NET Core development.</Description>
+    <PackageProjectUrl>https://gitlab.com/cssl/NetChris/framework/NetChris.Core</PackageProjectUrl>
+    <RepositoryUrl>https://gitlab.com/cssl/NetChris/framework/NetChris.Core.git</RepositoryUrl>
+    <PackageTags>netchris dotnet-core</PackageTags>
+    <PackageReleaseNotes>
+      Re-organization of IApplicationMetadata and supporting structures. 
+    </PackageReleaseNotes>
+  </PropertyGroup>
+
+  
+  <ItemGroup>
+    <None Include="images\nuget-icon.png">
+      <PackagePath>\</PackagePath>
+      <Pack>true</Pack>
+    </None>
+  </ItemGroup>
+</Project>

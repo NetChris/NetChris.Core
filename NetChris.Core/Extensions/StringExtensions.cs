@@ -3,6 +3,9 @@ using NetChris.Core.Values;
 
 namespace NetChris.Core.Extensions
 {
+    /// <summary>
+    /// Extension methods for strings
+    /// </summary>
     public static class StringExtensions
     {
         /// <summary>
