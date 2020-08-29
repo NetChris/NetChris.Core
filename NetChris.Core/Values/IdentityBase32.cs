@@ -116,11 +116,17 @@ namespace NetChris.Core.Values
             return result;
         }
 
+        /// <summary>
+        /// Implicit conversion from <see cref="UInt64"/>
+        /// </summary>
         public static implicit operator IdentityBase32(ulong value)
         {
             return new IdentityBase32(value);
         }
 
+        /// <summary>
+        /// Implicit conversion from <see cref="Int32"/>
+        /// </summary>
         public static implicit operator IdentityBase32(int value)
         {
             if (value < 0)
@@ -131,6 +137,9 @@ namespace NetChris.Core.Values
             return new IdentityBase32((ulong) value);
         }
 
+        /// <summary>
+        /// Implicit conversion from <see cref="Int64"/>
+        /// </summary>
         public static implicit operator IdentityBase32(long value)
         {
             if (value < 0)
@@ -141,11 +150,17 @@ namespace NetChris.Core.Values
             return new IdentityBase32((ulong) value);
         }
 
+        /// <summary>
+        /// Implicit conversion from a string
+        /// </summary>
         public static implicit operator IdentityBase32(string encodedValue)
         {
             return FromString(encodedValue);
         }
 
+        /// <summary>
+        /// Get the <see cref="UInt64"/> value which the <see cref="IdentityBase32"/> represents. 
+        /// </summary>
         public ulong GetValue()
         {
             return _internalNumber;

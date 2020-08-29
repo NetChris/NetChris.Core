@@ -1,62 +1,50 @@
 ---
-# https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/building-net-docker-images?view=aspnetcore-3.1
-image: mcr.microsoft.com/dotnet/core/sdk:3.1
-
-stages:
-  - build-test-pack
-  - push
-
-variables:
-  PatchVersion: ${CI_PIPELINE_IID}
-  NUGET_USERNAME: $CSSL_DEPLOY_TOKEN_GLOBAL_PACKAGE_REGISTRY_USERNAME
-  NUGET_PASSWORD: $CSSL_DEPLOY_TOKEN_GLOBAL_PACKAGE_REGISTRY_PASSWORD
-
-.all:
-  tags:
-    - NetChris
-
-.build-test-pack:
-  stage: build-test-pack
-  extends:
-    - .all
-  script:
-    - 'pwsh ./build-test-pack.ps1'
-  artifacts:
-    paths:
-      - artifacts/
-    expire_in: 1 week
-    reports:
-      junit: artifacts/junitresults.xml
-      cobertura: artifacts/coverage.cobertura.xml
-
-build-test-pack-dev:
+  # https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/building-net-docker-images?view=aspnetcore-3.1
+  image: mcr.microsoft.com/dotnet/core/sdk:3.1
+  
+  stages:
+    - build-test-pack
+    - push
+  
   variables:
-    VersionSuffix: "-$CI_COMMIT_REF_SLUG"
-  extends:
-    - .build-test-pack
-  except:
-    - master
-
-build-test-pack-master:
-  extends:
-    - .build-test-pack
-  only:
-    - master
-
-push-gitlab:
-  stage: push
-  extends:
-    - .all
-  script:
-    - |
-      dotnet nuget add source "https://gitlab.com/api/v4/projects/5137561/packages/nuget/index.json" -n gitlab -u $NUGET_USERNAME -p $NUGET_PASSWORD --store-password-in-clear-text
-      dotnet nuget push artifacts/**/*.nupkg --source gitlab --skip-duplicate
-  when: manual
-
-push-nuget:
-  stage: push
-  extends:
-    - .all
-  script:
-    - dotnet nuget push artifacts/**/*.nupkg -k $NUGET_PUSH_API_KEY -s https://api.nuget.org/v3/index.json
-  when: manual
+    PatchVersion: ${CI_PIPELINE_IID}
+    NUGET_USERNAME: $CSSL_DEPLOY_TOKEN_GLOBAL_PACKAGE_REGISTRY_USERNAME
+    NUGET_PASSWORD: $CSSL_DEPLOY_TOKEN_GLOBAL_PACKAGE_REGISTRY_PASSWORD
+    
+  .all:
+    tags:
+      - NetChris
+    
+  build-test-pack:
+    stage: build-test-pack
+    extends:
+      - .all
+    script:
+      - 'pwsh ./build/build-test-pack.ps1'
+    artifacts:
+      paths:
+        - build/artifacts/
+      expire_in: 1 week
+      reports:
+        junit: build/artifacts/junitresults.xml
+        cobertura: build/artifacts/coverage.cobertura.xml
+    
+  push-gitlab:
+    stage: push
+    extends:
+      - .all
+    script:
+      # Push to https://gitlab.com/cssl/NetChris/public/nuget-feed
+      - |
+        dotnet nuget add source "https://gitlab.com/api/v4/projects/20547210/packages/nuget/index.json" -n gitlab -u $NUGET_USERNAME -p $NUGET_PASSWORD --store-password-in-clear-text
+        dotnet nuget push build/artifacts/**/*.nupkg --source gitlab --skip-duplicate
+    when: manual
+    
+  push-nuget:
+    stage: push
+    extends:
+      - .all
+    script:
+      - dotnet nuget push build/artifacts/**/*.nupkg -k $NUGET_PUSH_API_KEY -s https://api.nuget.org/v3/index.json
+    when: manual
+  
