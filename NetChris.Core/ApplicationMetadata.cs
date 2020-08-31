@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 
 namespace NetChris.Core
@@ -33,7 +33,7 @@ namespace NetChris.Core
         /// <param name="applicationAggregate">The application aggregate.</param>
         /// <param name="environmentName">The environment in which the application is running.</param>
         /// <remarks>In this constructor overload, the <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
-        /// from <see cref="Assembly.GetExecutingAssembly"/>.</remarks>
+        /// from <see cref="Assembly.GetEntryAssembly"/>.</remarks>
         /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>
         public ApplicationMetadata(
             string applicationAggregate,
