@@ -4,10 +4,10 @@ namespace NetChris.Core.Clock
 {
     /// <summary>
     /// Implementation of <see cref="IClock"/> which provides the current
-    /// value from <see cref="DateTimeOffset.UtcNow"/>.
+    /// value from <see cref="DateTimeOffset.Now"/>.
     /// </summary>
     /// <seealso cref="IClock" />
-    public class UtcDateTimeClock : IClock
+    public class LocalClock : IClock
     {
         /// <summary>
         /// Gets the time according to the clock.
@@ -15,8 +15,7 @@ namespace NetChris.Core.Clock
         /// <returns>The time according to the clock.</returns>
         public DateTimeOffset GetTime()
         {
-            var result = DateTimeOffset.UtcNow;
-            return result;
+            return DateTimeOffset.Now;
         }
     }
 }

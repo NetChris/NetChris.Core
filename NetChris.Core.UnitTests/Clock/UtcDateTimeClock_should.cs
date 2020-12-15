@@ -5,16 +5,16 @@ using Xunit;
 
 namespace NetChris.Core.UnitTests.Clock
 {
-    public class UtcDateTimeClock_should
+    public class UtcClock_should
     {
         private readonly DateTime _start;
         private readonly DateTimeOffset _result;
         private readonly DateTime _end;
 
-        public UtcDateTimeClock_should()
+        public UtcClock_should()
         {
             // Arrange
-            var clock = new UtcDateTimeClock();
+            var clock = new UtcClock();
 
             // Act
             _start = DateTime.UtcNow;

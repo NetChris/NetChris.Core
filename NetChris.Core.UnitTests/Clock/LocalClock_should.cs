@@ -5,17 +5,17 @@ using Xunit;
 
 namespace NetChris.Core.UnitTests.Clock
 {
-    public class DateTimeClock_should
+    public class LocalClock_should
     {
         private readonly TimeSpan _utcOffset;
         private readonly DateTime _start;
         private readonly DateTimeOffset _result;
         private readonly DateTime _end;
 
-        public DateTimeClock_should()
+        public LocalClock_should()
         {
             // Arrange
-            var clock = new DateTimeClock();
+            var clock = new LocalClock();
 
             _utcOffset = TimeZoneInfo.Local.GetUtcOffset(DateTimeOffset.Now);
 
