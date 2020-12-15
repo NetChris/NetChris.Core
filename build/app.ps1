@@ -10,7 +10,7 @@ $testProject="NetChris.Core.UnitTests"
 $packProjects=@("NetChris.Core")
 
 # Required - Major version for packages
-$majorVersion=5
+$majorVersion=6
 
 # Required - Minor version for packages
 $minorVersion=0
