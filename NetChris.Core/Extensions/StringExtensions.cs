@@ -13,6 +13,7 @@ namespace NetChris.Core.Extensions
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns><c>true</c> if a string can be represented as a <see cref="Values.CompactGuid"/>; otherwise, <c>false</c>.</returns>
+        [Obsolete("Stop using CompactGuid. Use Guid.ToString(\"N\")", false)]
         public static bool CanBeConvertedToCompactGuid(this string value)
         {
             return System.Text.RegularExpressions.Regex.IsMatch(value, CompactGuid.RegularExpression);
@@ -30,6 +31,7 @@ namespace NetChris.Core.Extensions
         /// <param name="value">The value.</param>
         /// <exception cref="ArgumentNullException">value is null</exception>
         /// <exception cref="FormatException">value is not parseable as a <see cref="Guid"/></exception>
+        [Obsolete("Stop using CompactGuid. Use Guid.ToString(\"N\")", false)]
         public static CompactGuid ToCompactGuid(this string value)
         {
             if (value == null)
