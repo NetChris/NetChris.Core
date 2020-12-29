@@ -10,6 +10,7 @@ namespace NetChris.Core.Values
     /// that is as compact as possible and, assuming the concept of <see cref="CompactGuid"/> is used commonly,
     /// can be consistent across systems.
     /// </remarks>
+    [Obsolete("Stop using CompactGuid. Use Guid.ToString(\"N\")", false)]
     public struct CompactGuid
     {
         private readonly string _compactGuidString;
@@ -18,6 +19,7 @@ namespace NetChris.Core.Values
         /// Initializes a new instance of the <see cref="CompactGuid"/> struct.
         /// </summary>
         /// <param name="guid">The unique identifier.</param>
+        [Obsolete("Stop using CompactGuid. Use Guid.ToString(\"N\")", false)]
         public CompactGuid(Guid guid)
         {
             Guid = guid;
@@ -27,6 +29,7 @@ namespace NetChris.Core.Values
         /// <summary>
         /// Creates a new <see cref="CompactGuid"/> with a new <see cref="Guid"/>
         /// </summary>
+        [Obsolete("Stop using CompactGuid. Use Guid.ToString(\"N\")", false)]
         public static CompactGuid New()
         {
             return new CompactGuid(Guid.NewGuid());

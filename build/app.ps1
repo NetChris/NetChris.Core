@@ -13,4 +13,4 @@ $packProjects=@("NetChris.Core")
 $majorVersion=6
 
 # Required - Minor version for packages
-$minorVersion=0
+$minorVersion=1
