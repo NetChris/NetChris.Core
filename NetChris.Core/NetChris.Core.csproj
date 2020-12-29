@@ -23,9 +23,6 @@
     <PackageProjectUrl>https://gitlab.com/cssl/NetChris/framework/NetChris.Core</PackageProjectUrl>
     <RepositoryUrl>https://gitlab.com/cssl/NetChris/framework/NetChris.Core.git</RepositoryUrl>
     <PackageTags>netchris dotnet-core</PackageTags>
-    <PackageReleaseNotes>
-      Re-organization of IApplicationMetadata and supporting structures. 
-    </PackageReleaseNotes>
   </PropertyGroup>
 
   
