@@ -1,9 +1,0 @@
-# From standard - https://gitlab.com/cssl/NetChris/Standards/netcoreplatform/-/blob/master/app/.gitignore
-[Bb]in/
-[Oo]bj/
-
-/build/artifacts/
-
-.idea/
-
-*.user

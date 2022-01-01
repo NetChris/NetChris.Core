@@ -1,34 +1,46 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
 
-  <!-- Packaging metadata properties - Organizational static - unlikely to change -->  
-  <PropertyGroup>
-    <Authors>Chris Simmons</Authors>
+    <LangVersion>10.0</LangVersion>
+    <RootNamespace>NetChris.Core</RootNamespace>
 
-    <Company>NetChris Corp.</Company>
-    <Copyright>(c) 2020 NetChris Corp.</Copyright>
-    <PackageIcon>nuget-icon.png</PackageIcon>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
 
-  <!-- Packaging metadata properties - Project static - unlikely to change over the course of the project's lifetime -->  
-  <PropertyGroup>
     <PackageId>NetChris.Core</PackageId>
-    <Title>NetChris .NET Core Library</Title>
-    <Description>Base metadata and operational classes for .NET Core development.</Description>
-    <PackageProjectUrl>https://gitlab.com/cssl/NetChris/framework/NetChris.Core</PackageProjectUrl>
-    <RepositoryUrl>https://gitlab.com/cssl/NetChris/framework/NetChris.Core.git</RepositoryUrl>
-    <PackageTags>netchris dotnet-core</PackageTags>
+
+    <!-- TODO: VersionPrefix -->
+    <!-- 
+      If you have multiple packages in the same solution and wish to keep them all
+      at the same version, consider moving this to Directory.Build.props in the
+      solution root.
+    -->
+    <VersionPrefix>7.1</VersionPrefix>
+    
+    <Authors>NetChris Corp.</Authors>
+    <PackageReadmeFile>Package-README.md</PackageReadmeFile>
+    <PackageIcon>nuget-icon.png</PackageIcon>
+
+    <PackageTags>netchris;dotnet-core</PackageTags>
+    
   </PropertyGroup>
 
-  
   <ItemGroup>
-    <None Include="images\nuget-icon.png">
-      <PackagePath>\</PackagePath>
+    <PackageReference Include="NetChris.Build.MSBuild" Version="1.0.*">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Package-README.md">
+      <PackagePath>/</PackagePath>
+      <Pack>true</Pack>
+    </None>
+    <None Include="images/nuget-icon.png">
+      <PackagePath>/</PackagePath>
       <Pack>true</Pack>
     </None>
   </ItemGroup>
