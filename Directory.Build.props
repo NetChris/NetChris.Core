@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://gitlab.com/cssl/NetChris/dotnet/libraries/NetChris.Core</PackageProjectUrl>
+    <RepositoryUrl>https://gitlab.com/cssl/NetChris/dotnet/libraries/NetChris.Core.git</RepositoryUrl>
+  </PropertyGroup>
+</Project>
