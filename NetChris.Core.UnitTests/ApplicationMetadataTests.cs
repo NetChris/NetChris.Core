@@ -13,13 +13,22 @@ namespace NetChris.Core.UnitTests
         public ApplicationMetadataTests()
         {
             // Arrange
+            var thisAssembly = typeof(ApplicationMetadataTests).Assembly;
             _appMetadata =
                 new ApplicationMetadata(
-                    "AggregateNameDoesNotMatterForThisTest",
-                     "NetChris.Core.UnitTests","UnitTestEnvironment");
-            
+                    thisAssembly,
+                    "ExpectedAppAggregate",
+                    "ExpectedAppComponent",
+                    thisAssembly.GetName().Name!,
+                    "12345",
+                    "UnitTestEnvironment");
+
             _appMetadataWithJustAggregateAndEnvironment =
-                new ApplicationMetadata("AggregateNameDoesNotMatterForThisTest","UnitTestEnvironment"); 
+                ApplicationMetadata.GetApplicationMetadataFromEntryAssembly(
+                    "ExpectedAppAggregate",
+                    "ExpectedAppComponent",
+                    "12345",
+                    "UnitTestEnvironment");
         }
 
         [Fact]
@@ -39,13 +48,26 @@ namespace NetChris.Core.UnitTests
         public void ApplicationAggregate_should_flow_through()
         {
             // Arrange
-            string expectedApplicationAggregate = "AggregateNameDoesNotMatterForThisTest";
+            string expectedApplicationAggregate = "ExpectedAppAggregate";
 
             // Act
-            var applicationAggregate = _appMetadata.ApplicationAggregate;
+            var applicationAggregate = _appMetadata.CanonicalApplicationName.ApplicationAggregate;
 
             // Assert
             applicationAggregate.Should().Be(expectedApplicationAggregate);
+        }
+
+        [Fact]
+        public void ApplicationComponent_should_flow_through()
+        {
+            // Arrange
+            string expectedApplicationComponent = "ExpectedAppComponent";
+
+            // Act
+            var applicationAggregate = _appMetadata.CanonicalApplicationName.ApplicationComponent;
+
+            // Assert
+            applicationAggregate.Should().Be(expectedApplicationComponent);
         }
 
         [Fact]
@@ -79,13 +101,26 @@ namespace NetChris.Core.UnitTests
         public void StartTimestamp_should_stay_constant_over_instances()
         {
             // Arrange
+            var entryAssembly = Assembly.GetEntryAssembly();
+            var entryAssemblyName = entryAssembly?.GetName().Name;
+
             var appMetadata1 =
-                new ApplicationMetadata("DoesNotMatter1", environmentName: "UnitTestEnvironment",
-                    assembly: Assembly.GetEntryAssembly());
+                new ApplicationMetadata(
+                    entryAssembly!,
+                    "DoesNotMatter1",
+                    "DoesNotMatter1",
+                    entryAssemblyName!,
+                    "12345",
+                    "UnitTestEnvironment");
 
             var appMetadata2 =
-                new ApplicationMetadata("DoesNotMatter2", environmentName: "UnitTestEnvironment",
-                    assembly: Assembly.GetEntryAssembly());
+                new ApplicationMetadata(
+                    entryAssembly!,
+                    "DoesNotMatter2",
+                    "DoesNotMatter2",
+                    entryAssemblyName!,
+                    "12345",
+                    "UnitTestEnvironment");
 
             // Act
             var executionInstanceTimestamp1 = appMetadata1.StartTimestamp;
@@ -94,31 +129,31 @@ namespace NetChris.Core.UnitTests
             // Assert
             executionInstanceTimestamp1.Should().Be(executionInstanceTimestamp2);
         }
-    
+
         [Fact]
         public void EnvironmentName_should_flow_through()
         {
             _appMetadata.EnvironmentName.Should().Be("UnitTestEnvironment");
         }
-    
+
         [Fact]
         public void MachineName_should_have_a_value()
         {
             _appMetadata.MachineName.Should().NotBeNullOrWhiteSpace();
         }
-    
+
         [Fact]
         public void OSPlatform_should_have_a_value()
         {
             _appMetadata.OSPlatform.Should().NotBeNullOrWhiteSpace();
         }
-    
+
         [Fact]
         public void OSVersion_should_have_a_value()
         {
             _appMetadata.OSVersion.Should().NotBeNullOrWhiteSpace();
         }
-    
+
         [Fact]
         public void UserName_should_have_a_value()
         {
@@ -131,6 +166,12 @@ namespace NetChris.Core.UnitTests
             _appMetadata.ClrVersion.Should().NotBeNullOrWhiteSpace();
         }
 
+        [Fact]
+        public void BuildIdentifier_should_flow_through()
+        {
+            _appMetadata.BuildIdentifier.Should().Be("12345");
+        }
+        
         [Fact]
         public void Auto_Assembly_detection_detects_something()
         {

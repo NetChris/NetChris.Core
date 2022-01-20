@@ -27,7 +27,7 @@ namespace NetChris.Core.UnitTests.IdentityBase32Tests
         [Fact]
         public void Throw_ArgumentOutOfRangeException_on_empty_string_initialization()
         {
-            Action action = () =>
+            var action = () =>
             {
 #pragma warning disable 219
                 IdentityBase32 identityBase32 = "";
@@ -40,7 +40,7 @@ namespace NetChris.Core.UnitTests.IdentityBase32Tests
         [Fact]
         public void Throw_ArgumentOutOfRangeException_on_negative_initialization()
         {
-            Action action = () =>
+            var action = () =>
             {
 #pragma warning disable 219
                 IdentityBase32 identityBase32 = -1;
@@ -53,10 +53,12 @@ namespace NetChris.Core.UnitTests.IdentityBase32Tests
         [Fact]
         public void Throw_ArgumentNullException_on_null_string_initialization()
         {
-            Action action = () =>
+            var action = () =>
             {
 #pragma warning disable 219
+#pragma warning disable CS8604
                 IdentityBase32 identityBase32 = null;
+#pragma warning restore CS8604
 #pragma warning restore 219
             };
 
@@ -70,7 +72,7 @@ namespace NetChris.Core.UnitTests.IdentityBase32Tests
         [InlineData(';')]
         public void Throw_FormatException_on_disallowed_character(char disallowedCharacter)
         {
-            Action action = () =>
+            var action = () =>
             {
                 // ReSharper disable once UnusedVariable
                 IdentityBase32 identityBase32 = disallowedCharacter.ToString();
@@ -194,6 +196,7 @@ namespace NetChris.Core.UnitTests.IdentityBase32Tests
         [InlineData(31, "z")]
         [InlineData(32, "10")]
         [InlineData(320, "a0")]
+        [InlineData(ulong.MaxValue, "fzzzzzzzzzzzz")]
         public void Be_expected_string_values_from_known_integers(ulong number, string expectedString)
         {
             IdentityBase32 value = number;
