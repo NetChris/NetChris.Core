@@ -17,11 +17,22 @@ namespace NetChris.Core
         string ApplicationName { get; }
 
         /// <summary>
-        /// Gets the application aggregate, one of the key parts of the NetChris
-        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>.
+        /// Gets application's <see cref="CanonicalApplicationName"/>.
         /// </summary>
-        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>
-        string ApplicationAggregate { get; }
+        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name" />
+        CanonicalApplicationName CanonicalApplicationName { get; }
+
+        /// <summary>
+        /// Gets the application version.
+        /// </summary>
+        /// <value>The application version.</value>
+        Version ApplicationVersion { get; }
+
+        /// <summary>
+        /// Gets the build identifier.
+        /// </summary>
+        /// <value>The build identifier.</value>
+        string BuildIdentifier { get; }
 
         /// <summary>
         /// Gets the name of the environment.
@@ -36,17 +47,11 @@ namespace NetChris.Core
         string MachineName { get; }
 
         /// <summary>
-        /// Gets the application version.
-        /// </summary>
-        /// <value>The application version.</value>
-        Version ApplicationVersion { get; }
-
-        /// <summary>
         /// Gets the informational version.
         /// </summary>
         /// <remarks>This value is often a more descriptive representation of <see cref="ApplicationVersion"/></remarks>
         /// <value>The informational version.</value>
-        string InformationalVersion { get; }
+        string? InformationalVersion { get; }
 
         /// <summary>
         /// Gets the time at which the currently-running application instance was started.

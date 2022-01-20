@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Nullable>enable</Nullable>
 
     <LangVersion>10.0</LangVersion>
     <RootNamespace>NetChris.Core</RootNamespace>
@@ -11,15 +12,8 @@
 
     <PackageId>NetChris.Core</PackageId>
 
-    <!-- TODO: VersionPrefix -->
-    <!-- 
-      If you have multiple packages in the same solution and wish to keep them all
-      at the same version, consider moving this to Directory.Build.props in the
-      solution root.
-    -->
-    <VersionPrefix>7.1</VersionPrefix>
+    <VersionPrefix>8.0</VersionPrefix>
     
-    <Authors>NetChris Corp.</Authors>
     <PackageReadmeFile>Package-README.md</PackageReadmeFile>
     <PackageIcon>nuget-icon.png</PackageIcon>
 
@@ -28,7 +22,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetChris.Build.MSBuild" Version="1.0.*">
+    <PackageReference Include="NetChris.BuildTools.Versioning" Version="2.0.*">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

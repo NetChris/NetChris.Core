@@ -1,4 +1,4 @@
 ---
 include:
   - project: 'cssl/NetChris/gitlab/ci'
-    file: '/templates/dotnet/library-packages.yml'
+    file: '/templates/dotnet/library-packages-gitlab-only.yml'

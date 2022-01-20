@@ -170,6 +170,11 @@ namespace NetChris.Core.Values
         /// Returns the string representation of the <see cref="IdentityBase32"/>, with
         /// alpha characters are lower-case.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// The 'minimum' value of this is '0'.  The 'maximum' value is 'fzzzzzzzzzzzz'.
+        /// </para>
+        /// </remarks>
         public override string ToString()
         {
             var value = _internalNumber;

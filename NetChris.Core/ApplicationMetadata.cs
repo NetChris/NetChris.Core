@@ -7,77 +7,66 @@ namespace NetChris.Core
     /// <remarks>
     /// This is the primary default implementation of <see cref="IApplicationMetadata" />
     /// </remarks>
-    public class ApplicationMetadata
-        : IApplicationMetadata
+    public class ApplicationMetadata : IApplicationMetadata
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationMetadata" /> class, using
-        /// <see cref="Assembly.GetExecutingAssembly"/> for the assembly on which to base its data.
-        /// </summary>
-        /// <param name="applicationAggregate">The application aggregate.</param>
-        /// <param name="applicationName">The application name.</param>
-        /// <param name="environmentName">The environment in which the application is running.</param>
-        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>
-        public ApplicationMetadata(
-            string applicationAggregate,
-            string applicationName,
-            string environmentName) :
-            this(applicationAggregate, applicationName, Assembly.Load(applicationName), environmentName)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationMetadata" /> class, using
+        /// Gets a new instance of the <see cref="ApplicationMetadata" /> class, using
         /// <see cref="Assembly.GetEntryAssembly"/> for the assembly on which to base its data.
         /// </summary>
-        /// <param name="applicationAggregate">The application aggregate.</param>
+        /// <param name="applicationAggregate">The application aggregate, one of the key parts of the NetChris
+        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>.</param>
+        /// <param name="applicationComponent">The application component, one of the key parts of the NetChris
+        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>.</param>
+        /// <param name="buildIdentifier">The build identifier.</param>
         /// <param name="environmentName">The environment in which the application is running.</param>
-        /// <remarks>In this constructor overload, the <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
-        /// from <see cref="Assembly.GetEntryAssembly"/>.</remarks>
+        /// <remarks>In this factory, <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
+        /// from <see cref="Assembly.GetEntryAssembly"/> using its <see cref="AssemblyName.Name"/>.</remarks>
         /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>
-        public ApplicationMetadata(
+        public static ApplicationMetadata GetApplicationMetadataFromEntryAssembly(
             string applicationAggregate,
-            string environmentName) :
-            this(applicationAggregate, Assembly.GetEntryAssembly(), environmentName)
+            string applicationComponent,
+            string buildIdentifier,
+            string environmentName)
         {
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationMetadata" /> class.
-        /// </summary>
-        /// <param name="applicationAggregate">The application aggregate.</param>
-        /// <param name="assembly">The assembly from which to pull the <see cref="IApplicationMetadata.ApplicationName"/></param>
-        /// <param name="environmentName">The environment in which the application is running.</param>
-        /// <remarks>In this constructor overload, the <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
-        /// from <paramref name="assembly"/></remarks>
-        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>
-        public ApplicationMetadata(
-            string applicationAggregate,
-            Assembly assembly,
-            string environmentName) :
-            this(applicationAggregate, assembly.GetName().Name, assembly, environmentName)
-        {
+            var entryAssembly = Assembly.GetEntryAssembly();
+            if (entryAssembly == null)
+            {
+                throw new InvalidOperationException(
+                    "There was no assembly available from System.Reflection.Assembly.GetEntryAssembly()");
+            }
+
+            var applicationName = entryAssembly.GetName().Name;
+            var result = new ApplicationMetadata(entryAssembly, applicationAggregate, applicationComponent,
+                applicationName, buildIdentifier, environmentName);
+            return result;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationMetadata" /> class.
         /// </summary>
-        /// <param name="applicationAggregate">The application aggregate.</param>
+        /// <param name="applicationAggregate">The application aggregate, one of the key parts of the NetChris
+        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>.</param>
+        /// <param name="applicationComponent">The application component, one of the key parts of the NetChris
+        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>.</param>
         /// <param name="applicationName">The application name.</param>
         /// <param name="assembly">The assembly from which to pull the <see cref="IApplicationMetadata.ApplicationName"/></param>
+        /// <param name="buildIdentifier">The build identifier.</param>
         /// <param name="environmentName">The environment in which the application is running.</param>
         /// <remarks>In this constructor overload, the <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
         /// from <paramref name="assembly"/></remarks>
         /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>
         public ApplicationMetadata(
-            string applicationAggregate,
-            string applicationName,
             Assembly assembly,
+            string applicationAggregate,
+            string applicationComponent,
+            string applicationName,
+            string buildIdentifier,
             string environmentName)
         {
-            ApplicationAggregate = applicationAggregate;
+            CanonicalApplicationName = new CanonicalApplicationName(applicationAggregate, applicationComponent);
             ApplicationName = applicationName;
             EnvironmentName = environmentName;
+            BuildIdentifier = buildIdentifier;
 
             ApplicationVersion = assembly.GetName().Version;
             var assemblyInformationalVersionAttribute =
@@ -97,12 +86,21 @@ namespace NetChris.Core
             try
             {
                 OSPlatform = Environment.OSVersion.Platform.ToString();
-                OSVersion = Environment.OSVersion.VersionString;
             }
             catch (InvalidOperationException)
             {
                 // This property was unable to obtain the system version. -or-
                 // The obtained platform identifier is not a member of System.PlatformID
+                OSPlatform = string.Empty;
+            }
+
+            try
+            {
+                OSVersion = Environment.OSVersion.VersionString;
+            }
+            catch (InvalidOperationException)
+            {
+                OSVersion = string.Empty;
             }
 
             UserName = Environment.UserName;
@@ -113,7 +111,10 @@ namespace NetChris.Core
         public string ApplicationName { get; }
 
         /// <inheritdoc />
-        public string ApplicationAggregate { get; }
+        public CanonicalApplicationName CanonicalApplicationName { get; }
+
+        /// <inheritdoc />
+        public string BuildIdentifier { get; }
 
         /// <inheritdoc />
         public string EnvironmentName { get; }
@@ -137,7 +138,7 @@ namespace NetChris.Core
         public Version ApplicationVersion { get; }
 
         /// <inheritdoc />
-        public string InformationalVersion { get; }
+        public string? InformationalVersion { get; }
 
         // ReSharper disable once InconsistentNaming
         private static readonly DateTimeOffset _startTimestamp

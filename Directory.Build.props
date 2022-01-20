@@ -3,5 +3,7 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://gitlab.com/cssl/NetChris/dotnet/libraries/NetChris.Core</PackageProjectUrl>
     <RepositoryUrl>https://gitlab.com/cssl/NetChris/dotnet/libraries/NetChris.Core.git</RepositoryUrl>
+
+    <Authors>NetChris Corp.</Authors>
   </PropertyGroup>
 </Project>
