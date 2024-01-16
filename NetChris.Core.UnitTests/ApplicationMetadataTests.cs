@@ -86,15 +86,9 @@ namespace NetChris.Core.UnitTests
         [Fact]
         public void InformationalVersion_is_formatted_correctly()
         {
-            // Arrange
-            // This is defined in the csproj properties
-            var expectedVersion = "1.2.3-alpha informational version";
-
-            // Act
-            var applicationVersion = _appMetadata.InformationalVersion;
-
-            // Assert
-            applicationVersion.Should().Be(expectedVersion);
+            // With later versions of dotnet, the git sha will be appended to the informational version, so
+            // just check for whether is starts with the expected value.
+            _appMetadata.InformationalVersion.Should().StartWith("1.2.3-alpha informational version");
         }
 
         [Fact]
