@@ -3,7 +3,6 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/NetChris/NetChris.Core.Core</PackageProjectUrl>
     <RepositoryUrl>https://github.com/NetChris/NetChris.Core.Core.git</RepositoryUrl>
-
     <Authors>NetChris Corp.</Authors>
   </PropertyGroup>
 </Project>
