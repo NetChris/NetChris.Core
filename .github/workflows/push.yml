@@ -1,0 +1,25 @@
+# TODO - Establish as standard and place in GitHub composite action
+name: Build, Test, Pack, and push to GitHub NuGet registry
+
+on: [push]
+
+jobs:
+  build-test-pack-push:
+    runs-on: ubuntu-latest
+    name: Build, Test, Pack, Push
+    steps:
+      - name: Derive SemVer
+        id: parse
+        uses: NetChris-actions/parse-semver@11-output-nuget-microsoft-versions
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.x'
+      - name: Build
+        run: dotnet build --configuration Release
+      - name: Test
+        run: dotnet test --configuration Release --no-build
+      - name: Pack
+        run: dotnet pack --configuration Release /p:PackageVersion=${{ steps.parse.outputs.nuget_version }} /p:Version=${{ steps.parse.outputs.dotnet_assembly_version }} --output .

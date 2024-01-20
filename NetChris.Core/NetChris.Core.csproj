@@ -11,8 +11,6 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
     <PackageId>NetChris.Core</PackageId>
-
-    <VersionPrefix>8.0</VersionPrefix>
     
     <PackageReadmeFile>Package-README.md</PackageReadmeFile>
     <PackageIcon>nuget-icon.png</PackageIcon>
@@ -20,13 +18,6 @@
     <PackageTags>netchris;dotnet-core</PackageTags>
     
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="NetChris.BuildTools.Versioning" Version="2.0.*">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="Package-README.md">
