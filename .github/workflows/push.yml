@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Derive SemVer
         id: parse
-        uses: NetChris-actions/parse-semver@11-output-nuget-microsoft-versions
+        uses: NetChris/parse-semver@11-output-nuget-microsoft-versions
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup dotnet
