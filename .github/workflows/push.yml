@@ -7,6 +7,8 @@ jobs:
   build-test-pack-push:
     runs-on: ubuntu-latest
     name: Build, Test, Pack, Push
+    permissions:
+      packages: write
     steps:
       - name: Derive SemVer
         id: parse
