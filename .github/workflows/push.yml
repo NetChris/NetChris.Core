@@ -21,5 +21,10 @@ jobs:
         run: dotnet build --configuration Release
       - name: Test
         run: dotnet test --configuration Release --no-build
+      - name: Paranoid NuGet package clean
+        # For convenience we push *.nupkg later, so make sure the output folder is wiped, a paranoid move in case we re-use a runner?
+        run: rm -rf ./nupkgs
       - name: Pack
-        run: dotnet pack --configuration Release /p:PackageVersion=${{ steps.parse.outputs.nuget_version }} /p:Version=${{ steps.parse.outputs.dotnet_assembly_version }} --output .
+        run: dotnet pack --configuration Release /p:PackageVersion=${{ steps.parse.outputs.nuget_version }} /p:Version=${{ steps.parse.outputs.dotnet_assembly_version }} --output ./nupkgs
+      - name: Push
+        run: dotnet nuget push ./nupkgs/*.nupkg --source https://nuget.pkg.github.com/NetChris/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
