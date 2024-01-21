@@ -1,0 +1,24 @@
+# TODO - Establish as standard and place in GitHub composite action
+name: Publish Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish-release:
+    runs-on: ubuntu-latest
+    name: TODO
+    steps:
+      - name: Pre-Release
+        id: pre-release
+        if: ${{ github.event.release.prerelease }}
+        run: echo Prerelease
+      - name: XXX
+        run: echo XXX
+      - name: Pre-Release
+        id: release
+        if: ${{ ! github.event.release.prerelease }}
+        run: echo Release
+      - name: YYY
+        run: echo YYY
