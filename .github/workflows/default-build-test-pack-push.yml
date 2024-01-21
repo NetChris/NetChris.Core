@@ -32,4 +32,4 @@ jobs:
       - name: Pack
         run: dotnet pack --configuration Release /p:PackageVersion=${{ steps.parse.outputs.nuget_version }} /p:Version=${{ steps.parse.outputs.dotnet_assembly_version }} --output ./nupkgs
       - name: Push
-        run: dotnet nuget push ./nupkgs/*.nupkg --source https://nuget.pkg.github.com/NetChris/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
+        run: dotnet nuget push ./nupkgs/*.nupkg --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
