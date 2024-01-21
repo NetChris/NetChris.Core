@@ -17,7 +17,7 @@ jobs:
         # TODO - Use permanent tag or SHA
         uses: NetChris/parse-semver@11-output-nuget-microsoft-versions
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup dotnet
         uses: actions/setup-dotnet@v3
         with:
