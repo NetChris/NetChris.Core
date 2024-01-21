@@ -4,4 +4,7 @@ on: [push]
 
 jobs:
   build-test-pack-push:
+    permissions:
+      contents: read
+      packages: write
     uses: ./.github/workflows/default-build-test-pack-push.yml
