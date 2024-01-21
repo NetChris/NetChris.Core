@@ -7,9 +7,7 @@ jobs:
   build-test-pack-push:
     runs-on: ubuntu-latest
     name: Build, Test, Pack, Push
-    permissions:
-      contents: read
-      packages: write
+    permissions: write-all
       # actions: read|write|none
       # checks: read|write|none
       # contents: read|write|none
