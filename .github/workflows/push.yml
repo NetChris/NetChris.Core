@@ -7,40 +7,7 @@ jobs:
   build-test-pack-push:
     runs-on: ubuntu-latest
     name: Build, Test, Pack, Push
-    permissions:
-      contents: read
-      packages: write
-      # actions: read|write|none
-      # checks: read|write|none
-      # contents: read|write|none
-      # deployments: read|write|none
-      # id-token: read|write|none
-      # issues: read|write|none
-      # discussions: read|write|none
-      # packages: read|write|none
-      # pages: read|write|none
-      # pull-requests: read|write|none
-      # repository-projects: read|write|none
-      # security-events: read|write|none
-      # statuses: read|write|none
     steps:
       - name: Derive SemVer
-        id: parse
-        uses: NetChris/parse-semver@11-output-nuget-microsoft-versions
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.x'
-      - name: Build
-        run: dotnet build --configuration Release
-      - name: Test
-        run: dotnet test --configuration Release --no-build
-      - name: Paranoid NuGet package clean
-        # For convenience we push *.nupkg later, so make sure the output folder is wiped, a paranoid move in case we re-use a runner?
-        run: rm -rf ./nupkgs
-      - name: Pack
-        run: dotnet pack --configuration Release /p:PackageVersion=${{ steps.parse.outputs.nuget_version }} /p:Version=${{ steps.parse.outputs.dotnet_assembly_version }} --output ./nupkgs
-      - name: Push
-        run: dotnet nuget push ./nupkgs/*.nupkg --source https://nuget.pkg.github.com/NetChris/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
+        id: build-test-pack-push
+        uses: ./.github/workflows/default-build-test-pack-push.yml
