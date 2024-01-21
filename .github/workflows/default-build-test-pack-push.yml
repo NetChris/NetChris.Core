@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Derive SemVer
         id: parse
-        # TODO - Use permanent tag or SHA
+        # TODO - Use SHA
         uses: NetChris/parse-semver@11-output-nuget-microsoft-versions
       - name: Checkout
         uses: actions/checkout@v4
