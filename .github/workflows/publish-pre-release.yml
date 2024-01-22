@@ -1,10 +1,11 @@
 # TODO - Establish as standard and place in GitHub composite action
-name: Build, Test, Pack, and push to Pre-Release registry
+name: Build, Test, Pack, and push Pre-Release to registries
 
 # TODO - One job to push to GH registry
 # TODO - One job to push to inttest NuGet
 # TODO - One job to push to NuGet.org
 # TODO - Commonize ^^^^
+# TODO - Can we pack once and push multiple times?
 
 on:
   release:
@@ -43,6 +44,19 @@ jobs:
     with:
       nuget_version: ${{ needs.derive_semver.outputs.nuget_version }}
       dotnet_assembly_version: ${{ needs.derive_semver.outputs.dotnet_assembly_version }}
-      nuget_source: https://apiint.nugettest.org/v3/index.json
+      nuget_source: ${{ vars.NC_INT_NUGETTEST_ORG_API_SOURCE_URL }}
     secrets:
       nuget_api_key: ${{ secrets.NC_INT_NUGETTEST_ORG_API_KEY }}
+  build-test-pack-push-nugetorg:
+    name: Build, Test, Pack, and push to nuget.org
+    needs: derive_semver
+    permissions:
+      contents: read
+      packages: write
+    uses: ./.github/workflows/build-test-pack-push.yml
+    with:
+      nuget_version: ${{ needs.derive_semver.outputs.nuget_version }}
+      dotnet_assembly_version: ${{ needs.derive_semver.outputs.dotnet_assembly_version }}
+      nuget_source: ${{ vars.NC_NUGET_ORG_API_SOURCE_URL }}
+    secrets:
+      nuget_api_key: ${{ secrets.NC_NUGET_ORG_API_KEY }}
