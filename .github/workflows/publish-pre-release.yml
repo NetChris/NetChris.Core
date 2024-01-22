@@ -31,19 +31,6 @@ jobs:
       # We default to pushing to the organizational feed, so no value for nuget_source
     secrets:
       nuget_api_key: ${{ secrets.GITHUB_TOKEN }}
-  build-test-pack-push-nugettest:
-    name: int.nugettest.org
-    needs: parse_semver
-    permissions:
-      contents: read
-      packages: write
-    uses: ./.github/workflows/called-build-test-pack-push.yml
-    with:
-      nuget_version: ${{ needs.parse_semver.outputs.nuget_version }}
-      dotnet_assembly_version: ${{ needs.parse_semver.outputs.dotnet_assembly_version }}
-      nuget_source: ${{ vars.NC_INT_NUGETTEST_ORG_API_SOURCE_URL }}
-    secrets:
-      nuget_api_key: ${{ secrets.NC_INT_NUGETTEST_ORG_API_KEY }}
   build-test-pack-push-nugetorg:
     name: nuget.org
     needs: parse_semver
