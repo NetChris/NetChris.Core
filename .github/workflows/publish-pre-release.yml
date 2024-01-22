@@ -1,48 +1,14 @@
-# TODO - How to share this
 name: Pre-Release
-
-# TODO - Can we pack once and push multiple times?
 
 on:
   release:
     types: [prereleased]
 
 jobs:
-  enforce_semver:
-    name: Enforce SemVer
-    runs-on: ubuntu-latest
-    outputs:
-      nuget_version: ${{ steps.semver_pre_release.outputs.nuget_version }}
-      dotnet_assembly_version: ${{ steps.semver_pre_release.outputs.dotnet_assembly_version }}
-    steps:
-      - id: semver_pre_release
-        # TODO - NetChris/semver-release for release
-        uses: NetChris/semver-pre-release@d4b3def8607e91d29b9f8e1371045689765152e2
-  build-test-pack-push-github:
-    name: GitHub NuGet registry
-    needs: enforce_semver
+  push:
+    # TODO - Document this requirement
     permissions:
       contents: read
       packages: write
     # TODO - SHA
-    uses: NetChris/workflows/.github/workflows/dotnet-build-test-pack-push-default.yml@1-simple-dotnet-build-test-pack-push
-    with:
-      nuget_version: ${{ needs.enforce_semver.outputs.nuget_version }}
-      dotnet_assembly_version: ${{ needs.enforce_semver.outputs.dotnet_assembly_version }}
-      # We default to pushing to the organizational feed, so no value for nuget_source
-    secrets:
-      nuget_api_key: ${{ secrets.GITHUB_TOKEN }}
-  build-test-pack-push-nugetorg:
-    name: nuget.org
-    needs: enforce_semver
-    permissions:
-      contents: read
-      packages: write
-    # TODO - SHA
-    uses: NetChris/workflows/.github/workflows/dotnet-build-test-pack-push-default.yml@1-simple-dotnet-build-test-pack-push
-    with:
-      nuget_version: ${{ needs.enforce_semver.outputs.nuget_version }}
-      dotnet_assembly_version: ${{ needs.enforce_semver.outputs.dotnet_assembly_version }}
-      nuget_source: ${{ vars.NC_NUGET_ORG_API_SOURCE_URL }}
-    secrets:
-      nuget_api_key: ${{ secrets.NC_NUGET_ORG_API_KEY }}
+    uses: NetChris/workflows/.github/workflows/pre-release-dotnet-build-test-pack-push-default.yml@1-simple-dotnet-build-test-pack-push
