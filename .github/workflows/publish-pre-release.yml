@@ -24,7 +24,8 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: ./.github/workflows/called-build-test-pack-push.yml
+    # TODO - SHA
+    uses: NetChris/workflows/.github/workflows/dotnet-build-test-pack-push-default.yml@1-simple-dotnet-build-test-pack-push
     with:
       nuget_version: ${{ needs.enforce_semver.outputs.nuget_version }}
       dotnet_assembly_version: ${{ needs.enforce_semver.outputs.dotnet_assembly_version }}
@@ -37,7 +38,8 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: ./.github/workflows/called-build-test-pack-push.yml
+    # TODO - SHA
+    uses: NetChris/workflows/.github/workflows/dotnet-build-test-pack-push-default.yml@1-simple-dotnet-build-test-pack-push
     with:
       nuget_version: ${{ needs.enforce_semver.outputs.nuget_version }}
       dotnet_assembly_version: ${{ needs.enforce_semver.outputs.dotnet_assembly_version }}

@@ -1,4 +1,4 @@
-# TODO - Establish as standard and place in GitHub composite action
+# TODO - Delete once reusable workflow is proven
 name: Build, test, pack, push to NuGet registry
 
 on:

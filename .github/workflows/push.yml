@@ -19,7 +19,8 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: ./.github/workflows/called-build-test-pack-push.yml
+    # TODO - SHA
+    uses: NetChris/workflows/.github/workflows/dotnet-build-test-pack-push-default.yml@1-simple-dotnet-build-test-pack-push
     with:
       # The version here is long but it ensures each push is unique.
       nuget_version: ${{ needs.parse_semver.outputs.nuget_version }}-${{ github.run_number }}-${{ github.run_attempt }}-${{ github.run_id }}
