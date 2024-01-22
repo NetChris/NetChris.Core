@@ -3,7 +3,7 @@ using System;
 namespace NetChris.Core;
 
 /// <summary>
-/// The application's <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>
+/// The application's Canonical Application Name
 /// </summary>
 public class CanonicalApplicationName
 {
