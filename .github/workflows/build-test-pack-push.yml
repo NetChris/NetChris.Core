@@ -22,9 +22,6 @@ on:
       nuget_api_key:
         # TODO - Is there a way to default this to ${{ secrets.GITHUB_TOKEN }}?
         required: true
-    
-# TODO - Input for NuGet source: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-# TODO - Secret for NuGet source API key
 
 jobs:
   build-test-pack-push:
