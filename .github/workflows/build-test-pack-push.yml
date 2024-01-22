@@ -4,6 +4,9 @@ name: Build, Test, Pack, and push to GitHub NuGet registry
 on:
   workflow_call:
 
+# TODO - Input for NuGet source
+# TODO - Secret for NuGet source API key
+
 jobs:
   build-test-pack-push:
     runs-on: ubuntu-latest

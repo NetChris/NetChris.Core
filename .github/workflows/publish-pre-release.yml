@@ -1,0 +1,14 @@
+# TODO - Establish as standard and place in GitHub composite action
+name: Pre-Release
+
+on:
+  release:
+    types: [prereleased]
+
+jobs:
+  publish_pre_release:
+    runs-on: ubuntu-latest
+    name: TODO
+    steps:
+      - name: Build
+        run: echo XXXX
