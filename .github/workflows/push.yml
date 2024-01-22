@@ -5,26 +5,10 @@ on: [push]
 # TODO - Is this something we can put in a shared action?
 
 jobs:
-  parse_semver:
-    name: Parse SemVer
-    runs-on: ubuntu-latest
-    outputs:
-      nuget_version: ${{ steps.parse_semver_action.outputs.nuget_version }}
-      dotnet_assembly_version: ${{ steps.parse_semver_action.outputs.dotnet_assembly_version }}
-    steps:
-      - id: parse_semver_action
-        uses: NetChris/parse-semver@fdf7c91e3c241d139205239b3a48d3e0a530f64c
-  build-test-pack-push:
-    needs: parse_semver
+  push:
+    # TODO - Do we need to indicate this here?
     permissions:
       contents: read
       packages: write
     # TODO - SHA
-    uses: NetChris/workflows/.github/workflows/dotnet-build-test-pack-push-default.yml@1-simple-dotnet-build-test-pack-push
-    with:
-      # The version here is long but it ensures each push is unique.
-      nuget_version: ${{ needs.parse_semver.outputs.nuget_version }}-${{ github.run_number }}-${{ github.run_attempt }}-${{ github.run_id }}
-      dotnet_assembly_version: ${{ needs.parse_semver.outputs.dotnet_assembly_version }}
-      # We default to pushing to the organizational feed, so no value for nuget_source
-    secrets:
-      nuget_api_key: ${{ secrets.GITHUB_TOKEN }}
+    uses: NetChris/workflows/.github/workflows/push-dotnet-build-test-pack-push-default.yml@1-simple-dotnet-build-test-pack-push
