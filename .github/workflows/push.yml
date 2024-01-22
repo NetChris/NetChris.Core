@@ -13,8 +13,7 @@ jobs:
     steps:
       - name: Derive SemVer
         id: parse
-        # TODO - Use SHA
-        uses: NetChris/parse-semver@11-output-nuget-microsoft-versions
+        uses: NetChris/parse-semver@fdf7c91e3c241d139205239b3a48d3e0a530f64c
   build-test-pack-push:
     needs: derive_semver
     permissions:
