@@ -1,4 +1,4 @@
-name: Build, Test, Pack, and push to GitHub NuGet registry
+name: Push
 
 on: [push]
 

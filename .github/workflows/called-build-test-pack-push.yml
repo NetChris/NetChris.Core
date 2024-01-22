@@ -1,5 +1,5 @@
 # TODO - Establish as standard and place in GitHub composite action
-name: Build, Test, Pack, and push to GitHub NuGet registry
+name: Build, Test, Pack, and push to NuGet registry
 
 on:
   workflow_call:
