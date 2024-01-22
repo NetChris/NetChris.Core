@@ -23,6 +23,7 @@ jobs:
         # TODO - Use SHA
         uses: NetChris/parse-semver@11-output-nuget-microsoft-versions
   build-test-pack-push-github:
+    name: GitHub NuGet registry
     needs: derive_semver
     permissions:
       contents: read
@@ -35,7 +36,7 @@ jobs:
     secrets:
       nuget_api_key: ${{ secrets.GITHUB_TOKEN }}
   build-test-pack-push-nugettest:
-    name: Build, Test, Pack, and push to int.nugettest.org
+    name: int.nugettest.org
     needs: derive_semver
     permissions:
       contents: read
@@ -48,7 +49,7 @@ jobs:
     secrets:
       nuget_api_key: ${{ secrets.NC_INT_NUGETTEST_ORG_API_KEY }}
   build-test-pack-push-nugetorg:
-    name: Build, Test, Pack, and push to nuget.org
+    name: nuget.org
     needs: derive_semver
     permissions:
       contents: read
