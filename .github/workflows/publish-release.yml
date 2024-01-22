@@ -1,0 +1,16 @@
+name: Release
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  push:
+    # TODO - Document this requirement
+    permissions:
+      contents: read
+      packages: write
+    # TODO - SHA
+    uses: NetChris/workflows/.github/workflows/release-dotnet-build-test-pack-push-default.yml@1-simple-dotnet-build-test-pack-push
+    # TODO - Document this requirement 
+    secrets: inherit
