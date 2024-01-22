@@ -1,5 +1,5 @@
 # TODO - How to share this
-name: Build, Test, Pack, and push Pre-Release to registries
+name: Pre-Release
 
 # TODO - Can we pack once and push multiple times?
 
