@@ -13,6 +13,7 @@ jobs:
       dotnet_assembly_version: ${{ steps.parse_semver_action.outputs.dotnet_assembly_version }}
     steps:
       - id: parse_semver_action
+        # TODO - NetChris/semver-pre-release
         uses: NetChris/parse-semver@fdf7c91e3c241d139205239b3a48d3e0a530f64c
   build-test-pack-push:
     needs: parse_semver
