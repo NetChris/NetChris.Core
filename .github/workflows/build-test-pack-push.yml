@@ -3,8 +3,27 @@ name: Build, Test, Pack, and push to GitHub NuGet registry
 
 on:
   workflow_call:
-
-# TODO - Input for NuGet source
+    inputs:
+      nuget_version:
+        description: 'NuGet Version for the package'
+        required: true
+        type: string
+      dotnet_assembly_version:
+        description: '.NET Assembly Version'
+        required: true
+        type: string
+      nuget_source:
+        description: 'Package source (URL, UNC/folder path or package source name) to use.'
+        required: false
+        # TODO - Document that this is the default
+        default: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json 
+        type: string
+    secrets:
+      nuget_api_key:
+        # TODO - Is there a way to default this to ${{ secrets.GITHUB_TOKEN }}?
+        required: true
+    
+# TODO - Input for NuGet source: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
 # TODO - Secret for NuGet source API key
 
 jobs:
@@ -15,10 +34,6 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: Derive SemVer
-        id: parse
-        # TODO - Use SHA
-        uses: NetChris/parse-semver@11-output-nuget-microsoft-versions
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup dotnet
@@ -33,6 +48,6 @@ jobs:
         # For convenience we push *.nupkg later, so make sure the output folder is wiped, a paranoid move in case we re-use a runner?
         run: rm -rf ./nupkgs
       - name: Pack
-        run: dotnet pack --configuration Release /p:PackageVersion=${{ steps.parse.outputs.nuget_version }} /p:Version=${{ steps.parse.outputs.dotnet_assembly_version }} --output ./nupkgs
+        run: dotnet pack --configuration Release /p:PackageVersion=${{ inputs.nuget_version }} /p:Version=${{ inputs.dotnet_assembly_version }} --output ./nupkgs
       - name: Push
-        run: dotnet nuget push ./nupkgs/*.nupkg --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
+        run: dotnet nuget push ./nupkgs/*.nupkg --source ${{ inputs.nuget_source }} --api-key ${{ secrets.nuget_api_key }}

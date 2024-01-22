@@ -2,9 +2,28 @@ name: Build, Test, Pack, and push to GitHub NuGet registry
 
 on: [push]
 
+# TODO - Is this something we can put in a shared action?
+
 jobs:
+  derive_semver:
+    runs-on: ubuntu-latest
+    outputs:
+      nuget_version: ${{ steps.parse.outputs.nuget_version }}
+      dotnet_assembly_version: ${{ steps.parse.outputs.dotnet_assembly_version }}
+    steps:
+      - name: Derive SemVer
+        id: parse
+        # TODO - Use SHA
+        uses: NetChris/parse-semver@11-output-nuget-microsoft-versions
   build-test-pack-push:
+    needs: derive_semver
     permissions:
       contents: read
       packages: write
     uses: ./.github/workflows/build-test-pack-push.yml
+    with:
+      nuget_version: ${{ needs.derive_semver.outputs.nuget_version }}
+      dotnet_assembly_version: ${{ needs.derive_semver.outputs.dotnet_assembly_version }}
+      # We default to pushing to the organizational feed, so no value for nuget_source
+    secrets:
+      nuget_api_key: ${{ secrets.GITHUB_TOKEN }}
