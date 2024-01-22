@@ -8,39 +8,39 @@ on:
     types: [prereleased]
 
 jobs:
-  parse_semver:
-    name: Parse SemVer
+  enforce_semver:
+    name: Enforce SemVer
     runs-on: ubuntu-latest
     outputs:
-      nuget_version: ${{ steps.parse_semver_action.outputs.nuget_version }}
-      dotnet_assembly_version: ${{ steps.parse_semver_action.outputs.dotnet_assembly_version }}
+      nuget_version: ${{ steps.semver_pre_release.outputs.nuget_version }}
+      dotnet_assembly_version: ${{ steps.semver_pre_release.outputs.dotnet_assembly_version }}
     steps:
-      - id: parse_semver_action
-        # TODO - NetChris/semver-pre-release
-        uses: NetChris/parse-semver@fdf7c91e3c241d139205239b3a48d3e0a530f64c
+      - id: semver_pre_release
+        # TODO - NetChris/semver-release for release
+        uses: NetChris/semver-pre-release@d4b3def8607e91d29b9f8e1371045689765152e2
   build-test-pack-push-github:
     name: GitHub NuGet registry
-    needs: parse_semver
+    needs: enforce_semver
     permissions:
       contents: read
       packages: write
     uses: ./.github/workflows/called-build-test-pack-push.yml
     with:
-      nuget_version: ${{ needs.parse_semver.outputs.nuget_version }}
-      dotnet_assembly_version: ${{ needs.parse_semver.outputs.dotnet_assembly_version }}
+      nuget_version: ${{ needs.enforce_semver.outputs.nuget_version }}
+      dotnet_assembly_version: ${{ needs.enforce_semver.outputs.dotnet_assembly_version }}
       # We default to pushing to the organizational feed, so no value for nuget_source
     secrets:
       nuget_api_key: ${{ secrets.GITHUB_TOKEN }}
   build-test-pack-push-nugetorg:
     name: nuget.org
-    needs: parse_semver
+    needs: enforce_semver
     permissions:
       contents: read
       packages: write
     uses: ./.github/workflows/called-build-test-pack-push.yml
     with:
-      nuget_version: ${{ needs.parse_semver.outputs.nuget_version }}
-      dotnet_assembly_version: ${{ needs.parse_semver.outputs.dotnet_assembly_version }}
+      nuget_version: ${{ needs.enforce_semver.outputs.nuget_version }}
+      dotnet_assembly_version: ${{ needs.enforce_semver.outputs.dotnet_assembly_version }}
       nuget_source: ${{ vars.NC_NUGET_ORG_API_SOURCE_URL }}
     secrets:
       nuget_api_key: ${{ secrets.NC_NUGET_ORG_API_KEY }}
