@@ -2,9 +2,11 @@ name: Push
 
 on: [push]
 
-# TODO - Is this something we can put in a shared action?
-
 jobs:
   push:
+    # TODO - Document this requirement
+    permissions:
+      contents: read
+      packages: write
     # TODO - SHA
     uses: NetChris/workflows/.github/workflows/push-dotnet-build-test-pack-push-default.yml@1-simple-dotnet-build-test-pack-push
