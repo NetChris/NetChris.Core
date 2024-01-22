@@ -22,7 +22,8 @@ jobs:
       packages: write
     uses: ./.github/workflows/build-test-pack-push.yml
     with:
-      nuget_version: ${{ needs.derive_semver.outputs.nuget_version }}
+      # The version here is long but it ensures each push is unique.
+      nuget_version: ${{ needs.derive_semver.outputs.nuget_version }}-${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}
       dotnet_assembly_version: ${{ needs.derive_semver.outputs.dotnet_assembly_version }}
       # We default to pushing to the organizational feed, so no value for nuget_source
     secrets:
