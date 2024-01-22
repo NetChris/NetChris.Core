@@ -6,9 +6,5 @@ on: [push]
 
 jobs:
   push:
-    # TODO - Do we need to indicate this here?
-    permissions:
-      contents: read
-      packages: write
     # TODO - SHA
     uses: NetChris/workflows/.github/workflows/push-dotnet-build-test-pack-push-default.yml@1-simple-dotnet-build-test-pack-push
