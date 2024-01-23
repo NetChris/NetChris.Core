@@ -14,14 +14,14 @@ namespace NetChris.Core
         /// <see cref="Assembly.GetEntryAssembly"/> for the assembly on which to base its data.
         /// </summary>
         /// <param name="applicationAggregate">The application aggregate, one of the key parts of the NetChris
-        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>.</param>
+        /// Canonical Application Name.</param>
         /// <param name="applicationComponent">The application component, one of the key parts of the NetChris
-        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>.</param>
+        /// Canonical Application Name.</param>
         /// <param name="buildIdentifier">The build identifier.</param>
         /// <param name="environmentName">The environment in which the application is running.</param>
         /// <remarks>In this factory, <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
         /// from <see cref="Assembly.GetEntryAssembly"/> using its <see cref="AssemblyName.Name"/>.</remarks>
-        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>
+        /// Canonical Application Name
         public static ApplicationMetadata GetApplicationMetadataFromEntryAssembly(
             string applicationAggregate,
             string applicationComponent,
@@ -45,16 +45,16 @@ namespace NetChris.Core
         /// Initializes a new instance of the <see cref="ApplicationMetadata" /> class.
         /// </summary>
         /// <param name="applicationAggregate">The application aggregate, one of the key parts of the NetChris
-        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>.</param>
+        /// Canonical Application Name.</param>
         /// <param name="applicationComponent">The application component, one of the key parts of the NetChris
-        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>.</param>
+        /// Canonical Application Name.</param>
         /// <param name="applicationName">The application name.</param>
         /// <param name="assembly">The assembly from which to pull the <see cref="IApplicationMetadata.ApplicationName"/></param>
         /// <param name="buildIdentifier">The build identifier.</param>
         /// <param name="environmentName">The environment in which the application is running.</param>
         /// <remarks>In this constructor overload, the <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
         /// from <paramref name="assembly"/></remarks>
-        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>
+        /// Canonical Application Name
         public ApplicationMetadata(
             Assembly assembly,
             string applicationAggregate,

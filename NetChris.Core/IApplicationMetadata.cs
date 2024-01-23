@@ -7,7 +7,6 @@ namespace NetChris.Core
     /// as well as some metadata about the specific
     /// execution instance and deployed environment.
     /// </summary>
-    /// <see href="https://gitlab.com/NetChris/DotNET-Coding-Standards/wikis/Application-Metadata">Application metadata wiki</see>
     public interface IApplicationMetadata
     {
         /// <summary>
@@ -19,7 +18,6 @@ namespace NetChris.Core
         /// <summary>
         /// Gets application's <see cref="CanonicalApplicationName"/>.
         /// </summary>
-        /// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name" />
         CanonicalApplicationName CanonicalApplicationName { get; }
 
         /// <summary>
