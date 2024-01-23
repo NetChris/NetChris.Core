@@ -4,9 +4,7 @@ on: [push]
 
 jobs:
   push:
-    # TODO - Document this requirement
     permissions:
       contents: read
       packages: write
-    # TODO - SHA
-    uses: NetChris/workflows/.github/workflows/push-dotnet-build-test-pack-push-default.yml@1-simple-dotnet-build-test-pack-push
+    uses: NetChris/workflows/.github/workflows/push-dotnet-build-test-pack-push-default.yml@6753ed25deacfc53e292f92ba38bee45012a4279
