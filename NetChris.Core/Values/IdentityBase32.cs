@@ -13,8 +13,7 @@ namespace NetChris.Core.Values
     {
         private readonly ulong _internalNumber;
 
-        private static readonly CaseInsensitiveCharsToIntMap CaseInsensitiveCharsToIntMap =
-            new CaseInsensitiveCharsToIntMap();
+        private static readonly CaseInsensitiveCharsToIntMap CaseInsensitiveCharsToIntMap = new();
 
         static IdentityBase32()
         {
@@ -207,7 +206,7 @@ namespace NetChris.Core.Values
                 result = sb.ToString().TrimStart('0');
             }
 
-            return result;
+            return result.ToUpperInvariant();
         }
     }
 }
