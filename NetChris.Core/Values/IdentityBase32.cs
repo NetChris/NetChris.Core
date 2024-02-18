@@ -4,8 +4,6 @@ using System.Text;
 
 namespace NetChris.Core.Values
 {
-    // TODO 1000 - Allow for big int
-
     /// <summary>
     /// An variation on Douglas Crockford's
     /// <see href="https://www.crockford.com/wrmg/base32.html">Base32 Encoding</see>
