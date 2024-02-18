@@ -4,8 +4,6 @@ using System.Text;
 
 namespace NetChris.Core.Values
 {
-    // TODO 1000 - Allow for big int
-
     /// <summary>
     /// An variation on Douglas Crockford's
     /// <see href="https://www.crockford.com/wrmg/base32.html">Base32 Encoding</see>
@@ -15,8 +13,7 @@ namespace NetChris.Core.Values
     {
         private readonly ulong _internalNumber;
 
-        private static readonly CaseInsensitiveCharsToIntMap CaseInsensitiveCharsToIntMap =
-            new CaseInsensitiveCharsToIntMap();
+        private static readonly CaseInsensitiveCharsToIntMap CaseInsensitiveCharsToIntMap = new();
 
         static IdentityBase32()
         {
@@ -209,7 +206,7 @@ namespace NetChris.Core.Values
                 result = sb.ToString().TrimStart('0');
             }
 
-            return result;
+            return result.ToUpperInvariant();
         }
     }
 }
