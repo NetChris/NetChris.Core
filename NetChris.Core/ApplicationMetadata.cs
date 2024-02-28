@@ -17,7 +17,6 @@ namespace NetChris.Core
         /// <param name="applicationAggregateShort">The short-form application aggregate</param>
         /// <param name="applicationComponent">The application component</param>
         /// <param name="applicationComponentShort">The short-form application component</param>
-        /// <param name="buildIdentifier">The build identifier.</param>
         /// <param name="environmentName">The environment in which the application is running.</param>
         /// <remarks>In this factory, <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
         /// from <see cref="Assembly.GetEntryAssembly"/> using its <see cref="AssemblyName.Name"/>.</remarks>
@@ -26,7 +25,6 @@ namespace NetChris.Core
             string applicationAggregateShort,
             string applicationComponent,
             string applicationComponentShort,
-            string buildIdentifier,
             string environmentName)
         {
             var entryAssembly = Assembly.GetEntryAssembly();
@@ -37,9 +35,10 @@ namespace NetChris.Core
             }
 
             var applicationName = entryAssembly.GetName().Name;
-            var result = new ApplicationMetadata(entryAssembly, applicationAggregate, applicationAggregateShort,
+            var result = new ApplicationMetadata(entryAssembly,
+                applicationAggregate, applicationAggregateShort,
                 applicationComponent, applicationComponentShort,
-                applicationName, buildIdentifier, environmentName);
+                applicationName, environmentName);
             return result;
         }
 
@@ -52,7 +51,6 @@ namespace NetChris.Core
         /// <param name="applicationComponentShort">The short-form application component</param>
         /// <param name="applicationName">The application name.</param>
         /// <param name="assembly">The assembly from which to pull the <see cref="IApplicationMetadata.ApplicationName"/></param>
-        /// <param name="buildIdentifier">The build identifier.</param>
         /// <param name="environmentName">The environment in which the application is running.</param>
         /// <remarks>In this constructor overload, the <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
         /// from <paramref name="assembly"/>
@@ -64,14 +62,12 @@ namespace NetChris.Core
             string applicationComponent,
             string applicationComponentShort,
             string applicationName,
-            string buildIdentifier,
             string environmentName)
         {
             CanonicalApplicationName = new CanonicalApplicationName(applicationAggregate, applicationAggregateShort,
                 applicationComponent, applicationComponentShort);
             ApplicationName = applicationName;
             EnvironmentName = environmentName;
-            BuildIdentifier = buildIdentifier;
 
             ApplicationVersion = assembly.GetName().Version;
             var assemblyInformationalVersionAttribute =
@@ -117,9 +113,6 @@ namespace NetChris.Core
 
         /// <inheritdoc />
         public CanonicalApplicationName CanonicalApplicationName { get; }
-
-        /// <inheritdoc />
-        public string BuildIdentifier { get; }
 
         /// <inheritdoc />
         public string EnvironmentName { get; }

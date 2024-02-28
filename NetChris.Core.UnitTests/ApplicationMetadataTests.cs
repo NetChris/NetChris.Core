@@ -22,7 +22,6 @@ namespace NetChris.Core.UnitTests
                     "ExpectedAppComponent", 
                     "eac",
                     thisAssembly.GetName().Name!,
-                    "12345",
                     "UnitTestEnvironment");
 
             _appMetadataWithJustAggregateAndEnvironment =
@@ -31,7 +30,6 @@ namespace NetChris.Core.UnitTests
                     "eaa",
                     "ExpectedAppComponent", 
                     "eac",
-                    "12345",
                     "UnitTestEnvironment");
         }
 
@@ -124,7 +122,6 @@ namespace NetChris.Core.UnitTests
                     "DoesNotMatter1",
                     "dnm1",
                     entryAssemblyName!,
-                    "12345",
                     "UnitTestEnvironment");
 
             var appMetadata2 =
@@ -135,7 +132,6 @@ namespace NetChris.Core.UnitTests
                     "DoesNotMatter2",
                     "dnm2",
                     entryAssemblyName!,
-                    "12345",
                     "UnitTestEnvironment");
 
             // Act
@@ -180,12 +176,6 @@ namespace NetChris.Core.UnitTests
         public void ClrVersion_should_have_a_value()
         {
             _appMetadata.ClrVersion.Should().NotBeNullOrWhiteSpace();
-        }
-
-        [Fact]
-        public void BuildIdentifier_should_flow_through()
-        {
-            _appMetadata.BuildIdentifier.Should().Be("12345");
         }
 
         [Fact]
