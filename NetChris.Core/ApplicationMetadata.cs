@@ -13,10 +13,10 @@ namespace NetChris.Core
         /// Gets a new instance of the <see cref="ApplicationMetadata" /> class, using
         /// <see cref="Assembly.GetEntryAssembly"/> for the assembly on which to base its data.
         /// </summary>
-        /// <param name="applicationAggregate">The application aggregate, one of the key parts of the NetChris
-        /// Canonical Application Name.</param>
-        /// <param name="applicationComponent">The application component, one of the key parts of the NetChris
-        /// Canonical Application Name.</param>
+        /// <param name="applicationAggregate">The application aggregate</param>
+        /// <param name="applicationAggregateShort">The short-form application aggregate</param>
+        /// <param name="applicationComponent">The application component</param>
+        /// <param name="applicationComponentShort">The short-form application component</param>
         /// <param name="buildIdentifier">The build identifier.</param>
         /// <param name="environmentName">The environment in which the application is running.</param>
         /// <remarks>In this factory, <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
@@ -24,7 +24,9 @@ namespace NetChris.Core
         /// Canonical Application Name
         public static ApplicationMetadata GetApplicationMetadataFromEntryAssembly(
             string applicationAggregate,
+            string applicationAggregateShort,
             string applicationComponent,
+            string applicationComponentShort,
             string buildIdentifier,
             string environmentName)
         {
@@ -36,7 +38,8 @@ namespace NetChris.Core
             }
 
             var applicationName = entryAssembly.GetName().Name;
-            var result = new ApplicationMetadata(entryAssembly, applicationAggregate, applicationComponent,
+            var result = new ApplicationMetadata(entryAssembly, applicationAggregate, applicationAggregateShort,
+                applicationComponent, applicationComponentShort,
                 applicationName, buildIdentifier, environmentName);
             return result;
         }
@@ -44,26 +47,29 @@ namespace NetChris.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationMetadata" /> class.
         /// </summary>
-        /// <param name="applicationAggregate">The application aggregate, one of the key parts of the NetChris
-        /// Canonical Application Name.</param>
-        /// <param name="applicationComponent">The application component, one of the key parts of the NetChris
-        /// Canonical Application Name.</param>
+        /// <param name="applicationAggregate">The application aggregate</param>
+        /// <param name="applicationAggregateShort">The short-form application aggregate</param>
+        /// <param name="applicationComponent">The application component</param>
+        /// <param name="applicationComponentShort">The short-form application component</param>
         /// <param name="applicationName">The application name.</param>
         /// <param name="assembly">The assembly from which to pull the <see cref="IApplicationMetadata.ApplicationName"/></param>
         /// <param name="buildIdentifier">The build identifier.</param>
         /// <param name="environmentName">The environment in which the application is running.</param>
         /// <remarks>In this constructor overload, the <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
-        /// from <paramref name="assembly"/></remarks>
-        /// Canonical Application Name
+        /// from <paramref name="assembly"/>
+        /// </remarks>
         public ApplicationMetadata(
             Assembly assembly,
             string applicationAggregate,
+            string applicationAggregateShort,
             string applicationComponent,
+            string applicationComponentShort,
             string applicationName,
             string buildIdentifier,
             string environmentName)
         {
-            CanonicalApplicationName = new CanonicalApplicationName(applicationAggregate, applicationComponent);
+            CanonicalApplicationName = new CanonicalApplicationName(applicationAggregate, applicationAggregateShort,
+                applicationComponent, applicationComponentShort);
             ApplicationName = applicationName;
             EnvironmentName = environmentName;
             BuildIdentifier = buildIdentifier;
