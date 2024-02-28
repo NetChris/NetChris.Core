@@ -21,7 +21,6 @@ namespace NetChris.Core
         /// <param name="environmentName">The environment in which the application is running.</param>
         /// <remarks>In this factory, <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
         /// from <see cref="Assembly.GetEntryAssembly"/> using its <see cref="AssemblyName.Name"/>.</remarks>
-        /// Canonical Application Name
         public static ApplicationMetadata GetApplicationMetadataFromEntryAssembly(
             string applicationAggregate,
             string applicationAggregateShort,

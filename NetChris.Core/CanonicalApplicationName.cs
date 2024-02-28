@@ -5,6 +5,7 @@ namespace NetChris.Core;
 /// <summary>
 /// The application's Canonical Application Name
 /// </summary>
+/// <see href="https://gitlab.com/cssl/reference/-/wikis/canonical-application-name">Canonical Application Name</see>
 public class CanonicalApplicationName
 {
     /// <summary>
