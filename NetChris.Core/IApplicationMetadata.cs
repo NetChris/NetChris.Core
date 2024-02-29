@@ -27,12 +27,6 @@ namespace NetChris.Core
         Version ApplicationVersion { get; }
 
         /// <summary>
-        /// Gets the build identifier.
-        /// </summary>
-        /// <value>The build identifier.</value>
-        string BuildIdentifier { get; }
-
-        /// <summary>
         /// Gets the name of the environment.
         /// </summary>
         /// <value>The name of the environment.</value>

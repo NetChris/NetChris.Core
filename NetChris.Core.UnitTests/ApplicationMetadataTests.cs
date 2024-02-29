@@ -18,16 +18,18 @@ namespace NetChris.Core.UnitTests
                 new ApplicationMetadata(
                     thisAssembly,
                     "ExpectedAppAggregate",
-                    "ExpectedAppComponent",
+                    "eaa",
+                    "ExpectedAppComponent", 
+                    "eac",
                     thisAssembly.GetName().Name!,
-                    "12345",
                     "UnitTestEnvironment");
 
             _appMetadataWithJustAggregateAndEnvironment =
                 ApplicationMetadata.GetApplicationMetadataFromEntryAssembly(
                     "ExpectedAppAggregate",
-                    "ExpectedAppComponent",
-                    "12345",
+                    "eaa",
+                    "ExpectedAppComponent", 
+                    "eac",
                     "UnitTestEnvironment");
         }
 
@@ -35,52 +37,66 @@ namespace NetChris.Core.UnitTests
         public void Automatic_ApplicationName_discern_should_work()
         {
             // Arrange
-            string expectedApplicationName = "NetChris.Core.UnitTests";
-
             // Act
             var applicationName = _appMetadata.ApplicationName;
 
             // Assert
-            applicationName.Should().Be(expectedApplicationName);
+            applicationName.Should().Be("NetChris.Core.UnitTests");
         }
 
         [Fact]
         public void ApplicationAggregate_should_flow_through()
         {
             // Arrange
-            string expectedApplicationAggregate = "ExpectedAppAggregate";
-
             // Act
             var applicationAggregate = _appMetadata.CanonicalApplicationName.ApplicationAggregate;
 
             // Assert
-            applicationAggregate.Should().Be(expectedApplicationAggregate);
+            applicationAggregate.Should().Be("ExpectedAppAggregate");
+        }
+
+        [Fact]
+        public void ApplicationAggregateShort_should_flow_through()
+        {
+            // Arrange
+            // Act
+            var applicationAggregate = _appMetadata.CanonicalApplicationName.ApplicationAggregateShort;
+
+            // Assert
+            applicationAggregate.Should().Be("eaa");
         }
 
         [Fact]
         public void ApplicationComponent_should_flow_through()
         {
             // Arrange
-            string expectedApplicationComponent = "ExpectedAppComponent";
-
             // Act
             var applicationAggregate = _appMetadata.CanonicalApplicationName.ApplicationComponent;
 
             // Assert
-            applicationAggregate.Should().Be(expectedApplicationComponent);
+            applicationAggregate.Should().Be("ExpectedAppComponent");
+        }
+
+        [Fact]
+        public void ApplicationComponentShort_should_flow_through()
+        {
+            // Arrange
+            // Act
+            var applicationAggregate = _appMetadata.CanonicalApplicationName.ApplicationComponentShort;
+
+            // Assert
+            applicationAggregate.Should().Be("eac");
         }
 
         [Fact]
         public void ApplicationVersion_is_formatted_correctly()
         {
             // Arrange
-            var expectedVersion = new Version("1.2.3.0");
-
             // Act
             var applicationVersion = _appMetadata.ApplicationVersion;
 
             // Assert
-            applicationVersion.Should().Be(expectedVersion);
+            applicationVersion.Should().Be(new Version("1.2.3.0"));
         }
 
         [Fact]
@@ -102,18 +118,20 @@ namespace NetChris.Core.UnitTests
                 new ApplicationMetadata(
                     entryAssembly!,
                     "DoesNotMatter1",
+                    "dnm1",
                     "DoesNotMatter1",
+                    "dnm1",
                     entryAssemblyName!,
-                    "12345",
                     "UnitTestEnvironment");
 
             var appMetadata2 =
                 new ApplicationMetadata(
                     entryAssembly!,
                     "DoesNotMatter2",
+                    "dnm2",
                     "DoesNotMatter2",
+                    "dnm2",
                     entryAssemblyName!,
-                    "12345",
                     "UnitTestEnvironment");
 
             // Act
@@ -160,12 +178,6 @@ namespace NetChris.Core.UnitTests
             _appMetadata.ClrVersion.Should().NotBeNullOrWhiteSpace();
         }
 
-        [Fact]
-        public void BuildIdentifier_should_flow_through()
-        {
-            _appMetadata.BuildIdentifier.Should().Be("12345");
-        }
-        
         [Fact]
         public void Auto_Assembly_detection_detects_something()
         {
