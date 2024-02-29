@@ -1,5 +1,3 @@
-# NetChris.Core.Package1
+# NetChris.Core
 
-TODO: Fill me in
-
-- [ ] TODOs
+Base metadata and operational classes for .NET Core development.
