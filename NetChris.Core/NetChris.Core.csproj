@@ -20,6 +20,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <SupportedPlatform Include="browser"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Package-README.md">
       <PackagePath>/</PackagePath>
       <Pack>true</Pack>
