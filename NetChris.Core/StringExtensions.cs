@@ -26,4 +26,10 @@ public static class StringExtensions
 
         return result;
     }
+    
+    /// <summary>
+    /// Returns a default value if the string is null or whitespace, otherwise the original string
+    /// </summary>
+    public static string DefaultIfNullOrWhiteSpace(this string? value, string defaultValue) =>
+        string.IsNullOrWhiteSpace(value) ? defaultValue : value!;
 }
