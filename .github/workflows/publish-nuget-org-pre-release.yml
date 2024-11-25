@@ -1,4 +1,4 @@
-name: Pre-Release - GitHub
+name: Pre-Release - NuGet.org
 
 on:
   release:
