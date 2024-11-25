@@ -9,5 +9,5 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: NetChris/workflows/.github/workflows/pre-release-dotnet-build-test-pack-push-default.yml@6753ed25deacfc53e292f92ba38bee45012a4279
+    uses: NetChris/workflows/.github/workflows/pre-release-dotnet-build-test-pack-push-default.yml@v0.0
     secrets: inherit
