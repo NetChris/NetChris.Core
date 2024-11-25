@@ -1,0 +1,13 @@
+name: Release - GitHub
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  push:
+    permissions:
+      contents: read
+      packages: write
+    uses: NetChris/workflows/.github/workflows/release-nuget-org.yml@v0.0
+    secrets: inherit

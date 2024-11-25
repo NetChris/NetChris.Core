@@ -1,0 +1,13 @@
+name: Pre-Release - GitHub
+
+on:
+  release:
+    types: [prereleased]
+
+jobs:
+  push:
+    permissions:
+      contents: read
+      packages: write
+    uses: NetChris/workflows/.github/workflows/pre-release-nuget-org.yml@v0.0
+    secrets: inherit
