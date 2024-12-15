@@ -6,7 +6,13 @@ namespace NetChris.Core.UnitTests.CommandResult;
 
 public abstract class UnsuccessfulCommandResultTests
 {
+    private readonly CommandResultFailureMode _commandResultFailureMode;
     protected abstract ICommandResult CommandResult { get; }
+
+    protected UnsuccessfulCommandResultTests(CommandResultFailureMode commandResultFailureMode)
+    {
+        _commandResultFailureMode = commandResultFailureMode;
+    }
 
     [Fact]
     public void IsNotSuccessful()
@@ -19,10 +25,10 @@ public abstract class UnsuccessfulCommandResultTests
     {
         CommandResult.FailureDetail.Should().NotBeEmpty();
     }
-
+    
     [Fact]
-    public void HasPrimaryFailure()
+    public void FailureModeIsCorrect()
     {
-        CommandResult.PrimaryFailure.Should().NotBeNull();
+        CommandResult.FailureMode.Should().Be(_commandResultFailureMode);
     }
 }

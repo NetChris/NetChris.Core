@@ -4,7 +4,11 @@ namespace NetChris.Core.UnitTests.CommandResult;
 
 public class UntypedUnsuccessfulCommandResultTests : UnsuccessfulCommandResultTests
 {
-    protected override ICommandResult CommandResult => UnsuccessfulCommandResult.FromSingleFailure(
+    public UntypedUnsuccessfulCommandResultTests() : base(CommandResultFailureMode.ResourceNotFound)
+    {
+    }
+
+    protected override ICommandResult CommandResult => UnsuccessfulCommandResult.ResourceNotFound(
         "UntypedResourceNotFound", "Resource not found: UNTYPED");
 
 }

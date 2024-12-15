@@ -7,8 +7,12 @@ namespace NetChris.Core.UnitTests.CommandResult;
 public class TypedUnsuccessfulCommandResultTests : UnsuccessfulCommandResultTests
 {
     private readonly ICommandResult<TypedUnsuccessfulCommandResultTests> _typedResult =
-        UnsuccessfulCommandResult.FromSingleFailure<TypedUnsuccessfulCommandResultTests>(
+        UnsuccessfulCommandResult.ResourceNotFound<TypedUnsuccessfulCommandResultTests>(
             "TypedResourceNotFound", "Resource not found: TYPED");
+
+    public TypedUnsuccessfulCommandResultTests() : base(CommandResultFailureMode.ResourceNotFound)
+    {
+    }
 
     [Fact]
     public void ThereIsNoResult()

@@ -10,45 +10,52 @@ namespace NetChris.Core.CommandResult;
 public class UnsuccessfulCommandResult : ICommandResult
 {
     /// <summary>
-    /// Get a new instance of <see cref="UnsuccessfulCommandResult"/> with a single failure.
+    /// Get a new instance of <see cref="UnsuccessfulCommandResult"/> for a resource-not-found failure.
     /// </summary>
-    public static UnsuccessfulCommandResult FromSingleFailure(SimpleResult primaryFailure)
+    public static UnsuccessfulCommandResult ResourceNotFound(string resultCode = "ResourceNotFound",
+        string message = "Resource not found")
     {
-        return new UnsuccessfulCommandResult(new[] { primaryFailure }, primaryFailure);
+        return new UnsuccessfulCommandResult(CommandResultFailureMode.ResourceNotFound,
+            new[] { new SimpleResult(resultCode, message) });
     }
 
     /// <summary>
     /// Get a new instance of <see cref="UnsuccessfulCommandResult"/> with a single failure.
     /// </summary>
-    public static UnsuccessfulCommandResult FromSingleFailure(string resultCode, string message)
+    public static UnsuccessfulCommandResult FromSingleFailure(CommandResultFailureMode failureMode,
+        SimpleResult primaryFailure)
     {
-        return FromSingleFailure(new SimpleResult(resultCode, message));
+        return new UnsuccessfulCommandResult(failureMode, new[] { primaryFailure });
     }
+
     /// <summary>
-    /// Get a new instance of <see cref="UnsuccessfulCommandResult"/> with a single failure.
+    /// Get a new instance of <see cref="UnsuccessfulCommandResult"/> for a resource-not-found failure.
     /// </summary>
-    public static UnsuccessfulCommandResult<TSingleFailureResult> FromSingleFailure<TSingleFailureResult>(SimpleResult primaryFailure)
+    public static UnsuccessfulCommandResult<TSingleFailureResult> ResourceNotFound<TSingleFailureResult>(
+        string resultCode = "ResourceNotFound", string message = "Resource not found")
     {
-        return new UnsuccessfulCommandResult<TSingleFailureResult>(new[] { primaryFailure }, primaryFailure);
+        return new UnsuccessfulCommandResult<TSingleFailureResult>(CommandResultFailureMode.ResourceNotFound,
+            new[] { new SimpleResult(resultCode, message) });
     }
 
     /// <summary>
     /// Get a new instance of <see cref="UnsuccessfulCommandResult"/> with a single failure.
     /// </summary>
-    public static UnsuccessfulCommandResult<TSingleFailureResult> FromSingleFailure<TSingleFailureResult>(string resultCode, string message)
+    public static UnsuccessfulCommandResult<TSingleFailureResult> FromSingleFailure<TSingleFailureResult>(
+        CommandResultFailureMode failureMode, SimpleResult primaryFailure)
     {
-        return FromSingleFailure<TSingleFailureResult>(new SimpleResult(resultCode, message));
+        return new UnsuccessfulCommandResult<TSingleFailureResult>(failureMode, new[] { primaryFailure });
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UnsuccessfulCommandResult" /> class.
     /// </summary>
-    /// <param name="failureDetail">The command result failure reasons.</param>
-    /// <param name="primaryFailure">The primary command result failure reason.</param>
-    public UnsuccessfulCommandResult(IEnumerable<SimpleResult> failureDetail, SimpleResult primaryFailure)
+    /// <param name="failureMode">The failure mode</param>
+    /// <param name="failureDetail">The command result failure reasons</param>
+    public UnsuccessfulCommandResult(CommandResultFailureMode failureMode, IEnumerable<SimpleResult> failureDetail)
     {
+        FailureMode = failureMode;
         FailureDetail = failureDetail;
-        PrimaryFailure = primaryFailure;
     }
 
     /// <inheritdoc />
@@ -61,7 +68,7 @@ public class UnsuccessfulCommandResult : ICommandResult
     public virtual Exception? Exception => null;
 
     /// <inheritdoc />
-    public SimpleResult PrimaryFailure { get; }
+    public CommandResultFailureMode FailureMode { get; }
 }
 
 /// <summary>
@@ -69,14 +76,14 @@ public class UnsuccessfulCommandResult : ICommandResult
 /// </summary>
 public class UnsuccessfulCommandResult<TResult> : UnsuccessfulCommandResult, ICommandResult<TResult>
 {
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="UnsuccessfulCommandResult" /> class.
+    /// Initializes a new instance of the <see cref="UnsuccessfulCommandResult{TResult}" /> class.
     /// </summary>
-    /// <param name="failureDetail">The command result failure reasons.</param>
-    /// <param name="primaryFailure">The primary command result failure reason.</param>
-    public UnsuccessfulCommandResult(IEnumerable<SimpleResult> failureDetail, SimpleResult primaryFailure) : base(
-        failureDetail, primaryFailure)
+    /// <param name="failureMode">The failure mode</param>
+    /// <param name="failureDetail">The command result failure reasons</param>
+    public UnsuccessfulCommandResult(CommandResultFailureMode failureMode, IEnumerable<SimpleResult> failureDetail) :
+        base(
+            failureMode, failureDetail)
     {
     }
 
