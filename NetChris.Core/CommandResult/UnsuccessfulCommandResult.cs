@@ -9,8 +9,6 @@ namespace NetChris.Core.CommandResult;
 /// </summary>
 public class UnsuccessfulCommandResult : ICommandResult
 {
-    // string resultCode, string message)
-
     /// <summary>
     /// Get a new instance of <see cref="UnsuccessfulCommandResult"/> with a single failure.
     /// </summary>

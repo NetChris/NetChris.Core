@@ -5,7 +5,7 @@ using NetChris.Core.Values;
 namespace NetChris.Core.CommandResult;
 
 /// <summary>
-/// Result of executing a command
+/// Result of executing a command, with a typed result object
 /// </summary>
 public interface ICommandResult<TResult> : ICommandResult
 {
