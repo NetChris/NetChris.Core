@@ -88,5 +88,5 @@ public class UnsuccessfulCommandResult<TResult> : UnsuccessfulCommandResult, ICo
     }
 
     /// <inheritdoc />
-    public TResult? Result => default;
+    public TResult Result => throw new InvalidOperationException();
 }

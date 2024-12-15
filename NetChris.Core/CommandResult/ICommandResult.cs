@@ -12,7 +12,8 @@ public interface ICommandResult<TResult> : ICommandResult
     /// <summary>
     /// The result of the command
     /// </summary>
-    TResult? Result { get; }
+    /// <exception cref="InvalidOperationException">Thrown if the <see cref="ICommandResult"/> is a failure and there is no result</exception>
+    TResult Result { get; }
 }
 
 /// <summary>

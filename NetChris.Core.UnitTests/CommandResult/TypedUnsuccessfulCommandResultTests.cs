@@ -1,3 +1,4 @@
+using System;
 using FluentAssertions;
 using NetChris.Core.CommandResult;
 using Xunit;
@@ -15,9 +16,10 @@ public class TypedUnsuccessfulCommandResultTests : UnsuccessfulCommandResultTest
     }
 
     [Fact]
-    public void ThereIsNoResult()
+    public void GettingResultThrows()
     {
-        _typedResult.Result.Should().BeNull();
+        Action act = () => _ = _typedResult.Result;
+        act.Should().Throw<InvalidOperationException>();
     }
 
     protected override ICommandResult CommandResult => _typedResult;
