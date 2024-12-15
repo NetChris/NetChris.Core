@@ -21,8 +21,8 @@ public abstract class SuccessfulCommandResultTests
     }
 
     [Fact]
-    public void HasNoPrimaryFailure()
+    public void FailureModeIsNoFailure()
     {
-        CommandResult.PrimaryFailure.Should().BeNull();
+        CommandResult.FailureMode.Should().Be(CommandResultFailureMode.NoFailure);
     }
 }

@@ -12,7 +12,8 @@ public interface ICommandResult<TResult> : ICommandResult
     /// <summary>
     /// The result of the command
     /// </summary>
-    TResult? Result { get; }
+    /// <exception cref="InvalidOperationException">Thrown if the <see cref="ICommandResult"/> is a failure and there is no result</exception>
+    TResult Result { get; }
 }
 
 /// <summary>
@@ -31,12 +32,40 @@ public interface ICommandResult
     IEnumerable<SimpleResult> FailureDetail { get; }
 
     /// <summary>
-    /// Gets the <see cref="Exception"/> causing the command failure, if any.
+    /// Gets the <see cref="Exception"/> causing or related to the command failure, if any.
     /// </summary>
+    /// <remarks>
+    /// </remarks>
     Exception? Exception { get; }
+    
+    /// <summary>
+    /// The mode of failure for the command
+    /// </summary>
+    CommandResultFailureMode FailureMode { get; }
+}
+
+/// <summary>
+/// Possible modes of failure for a <see cref="ICommandResult"/>
+/// </summary>
+public enum CommandResultFailureMode
+{
+    /// <summary>
+    /// The command was successful
+    /// </summary>
+    NoFailure = 0,
 
     /// <summary>
-    /// The primary failure, if any
+    /// The command failed because the state of the command was invalid
     /// </summary>
-    SimpleResult? PrimaryFailure { get; }
+    InvalidCommand = 400,
+
+    /// <summary>
+    /// The command failed because of a missing resource
+    /// </summary>
+    ResourceNotFound = 404,
+    
+    /// <summary>
+    /// The command failed because of an internal error
+    /// </summary>
+    InternalError = 500,
 }

@@ -17,10 +17,10 @@ public class SuccessfulCommandResult : ICommandResult
     public IEnumerable<SimpleResult> FailureDetail => new ReadOnlyCollection<SimpleResult>(new List<SimpleResult>());
 
     /// <inheritdoc />
-    public virtual Exception? Exception => null;
+    public Exception? Exception => null;
 
     /// <inheritdoc />
-    public SimpleResult? PrimaryFailure => null;
+    public CommandResultFailureMode FailureMode => CommandResultFailureMode.NoFailure;
 }
 
 /// <summary>
