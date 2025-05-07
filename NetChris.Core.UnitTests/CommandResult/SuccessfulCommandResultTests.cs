@@ -4,6 +4,7 @@ using Xunit;
 
 namespace NetChris.Core.UnitTests.CommandResult;
 
+[System.Obsolete("ICommandResult is obsolete")]
 public abstract class SuccessfulCommandResultTests
 {
     protected abstract ICommandResult CommandResult { get; }

@@ -7,6 +7,7 @@ namespace NetChris.Core.CommandResult;
 /// <summary>
 /// Simple implementation of an unsuccessful command result.
 /// </summary>
+[Obsolete("Use NetChris.Cqrs package for this functionality")]
 public class UnsuccessfulCommandResult : ICommandResult
 {
     /// <summary>
@@ -74,6 +75,7 @@ public class UnsuccessfulCommandResult : ICommandResult
 /// <summary>
 /// Simple implementation of an unsuccessful command result.
 /// </summary>
+[Obsolete("Use NetChris.Cqrs package for this functionality")]
 public class UnsuccessfulCommandResult<TResult> : UnsuccessfulCommandResult, ICommandResult<TResult>
 {
     /// <summary>
