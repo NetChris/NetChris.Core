@@ -7,6 +7,7 @@ namespace NetChris.Core.CommandResult;
 /// <summary>
 /// Result of executing a command, with a typed result object
 /// </summary>
+[Obsolete("Use NetChris.Cqrs package for this functionality")]
 public interface ICommandResult<TResult> : ICommandResult
 {
     /// <summary>
@@ -19,6 +20,7 @@ public interface ICommandResult<TResult> : ICommandResult
 /// <summary>
 /// Result of executing a command
 /// </summary>
+[Obsolete("Use NetChris.Cqrs package for this functionality")]
 public interface ICommandResult
 {
     /// <summary>
@@ -47,6 +49,7 @@ public interface ICommandResult
 /// <summary>
 /// Possible modes of failure for a <see cref="ICommandResult"/>
 /// </summary>
+[Obsolete("Use NetChris.Cqrs package for this functionality")]
 public enum CommandResultFailureMode
 {
     /// <summary>

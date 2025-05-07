@@ -8,6 +8,7 @@ namespace NetChris.Core.CommandResult;
 /// <summary>
 /// Simple implementation of a successful command result.
 /// </summary>
+[Obsolete("Use NetChris.Cqrs package for this functionality")]
 public class SuccessfulCommandResult : ICommandResult
 {
     /// <inheritdoc />
@@ -26,6 +27,7 @@ public class SuccessfulCommandResult : ICommandResult
 /// <summary>
 /// Simple implementation of a successful command result, with the typed result object.
 /// </summary>
+[Obsolete("Use NetChris.Cqrs package for this functionality")]
 public class SuccessfulCommandResult<TResult> : SuccessfulCommandResult, ICommandResult<TResult>
 {
     /// <summary>
