@@ -34,11 +34,17 @@ namespace NetChris.Core
                     "There was no assembly available from System.Reflection.Assembly.GetEntryAssembly()");
             }
 
-            var applicationName = entryAssembly.GetName().Name;
+            var assemblySimpleName = entryAssembly.GetName().Name;
+
+            if (assemblySimpleName == null)
+            {
+                throw new InvalidOperationException("The assembly's simple name was null");
+            }
+
             var result = new ApplicationMetadata(entryAssembly,
                 applicationAggregate, applicationAggregateShort,
                 applicationComponent, applicationComponentShort,
-                applicationName, environmentName);
+                assemblySimpleName, environmentName);
             return result;
         }
 
@@ -55,6 +61,8 @@ namespace NetChris.Core
         /// <remarks>In this constructor overload, the <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
         /// from <paramref name="assembly"/>
         /// </remarks>
+        /// <exception cref="InvalidOperationException">Thrown if the
+        /// <paramref name="assembly"/>'s <see cref="AssemblyName"/> does not have a version</exception>
         public ApplicationMetadata(
             Assembly assembly,
             string applicationAggregate,
@@ -69,7 +77,14 @@ namespace NetChris.Core
             ApplicationName = applicationName;
             EnvironmentName = environmentName;
 
-            ApplicationVersion = assembly.GetName().Version;
+            var assemblyNameVersion = assembly.GetName().Version;
+
+            if (assemblyNameVersion == null)
+            {
+                throw new InvalidOperationException("The assembly name version was null");
+            }
+
+            ApplicationVersion = assemblyNameVersion;
             var assemblyInformationalVersionAttribute =
                 assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
             InformationalVersion = assemblyInformationalVersionAttribute?.InformationalVersion;

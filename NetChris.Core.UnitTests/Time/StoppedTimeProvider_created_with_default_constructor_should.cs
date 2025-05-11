@@ -1,25 +1,25 @@
 ﻿using System;
 using FluentAssertions;
-using NetChris.Core.Clock;
+using NetChris.Core.Time;
 using Xunit;
 
-namespace NetChris.Core.UnitTests.Clock
+namespace NetChris.Core.UnitTests.Time
 {
-    public class StoppedClock_created_with_default_constructor_should
+    public class StoppedTimeProvider_created_with_default_constructor_should
     {
         private readonly DateTimeOffset _start;
         private readonly DateTimeOffset _end;
         private DateTimeOffset _result;
 
-        public StoppedClock_created_with_default_constructor_should()
+        public StoppedTimeProvider_created_with_default_constructor_should()
         {
             // Arrange
             _start = DateTimeOffset.Now;
-            IClock clock = new StoppedClock();
+            TimeProvider clock = new StoppedTimeProvider();
             _end = DateTimeOffset.Now;
 
             // Act
-            _result = clock.GetTime();
+            _result = clock.GetUtcNow();
         }
 
         [Fact]

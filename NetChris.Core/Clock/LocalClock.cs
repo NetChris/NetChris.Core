@@ -7,6 +7,7 @@ namespace NetChris.Core.Clock
     /// value from <see cref="DateTimeOffset.Now"/>.
     /// </summary>
     /// <seealso cref="IClock" />
+    [Obsolete("Stop using this altogether. Use System.TimeProvider and adjust for local.", true)]
     public class LocalClock : IClock
     {
         /// <summary>

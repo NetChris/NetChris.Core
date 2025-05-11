@@ -11,6 +11,7 @@ namespace NetChris.Core.Clock
     /// While in typical use these nondeterministic results are indeed
     /// desired they are hard to test.
     /// </remarks>
+    [Obsolete("Use System.TimeProvider", true)]
     public interface IClock
     {
         /// <summary>

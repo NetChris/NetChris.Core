@@ -7,6 +7,7 @@ namespace NetChris.Core.Clock
     /// value from <see cref="DateTimeOffset.UtcNow"/>.
     /// </summary>
     /// <seealso cref="IClock" />
+    [Obsolete("Stop using this altogether. Use System.TimeProvider and adjust for UTC.", true)]
     public class UtcClock : IClock
     {
         /// <summary>

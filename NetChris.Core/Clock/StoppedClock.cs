@@ -7,6 +7,7 @@ namespace NetChris.Core.Clock
     /// for <see cref="GetTime"/>, much like a stopped clock.
     /// </summary>
     /// <seealso cref="IClock" />
+    [Obsolete("Use StoppedTimeProvider", true)]
     public class StoppedClock : IClock
     {
         /// <summary>
