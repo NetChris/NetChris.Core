@@ -1,7 +1,7 @@
 ﻿namespace NetChris.Core.Values;
 
 /// <summary>
-/// Lightweight object with an code and message.
+/// Lightweight object with a code and message.
 /// A glorified key/value pair.
 /// </summary>
 /// <remarks>
