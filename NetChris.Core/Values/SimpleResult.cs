@@ -13,18 +13,16 @@
 public class SimpleResult
 {
     /// <summary>
-    /// Gets the code
+    /// The result code
     /// </summary>
-    /// <value>The result code</value>
     public string ResultCode
     {
         get;
     }
 
     /// <summary>
-    /// Gets the message.
+    /// The message
     /// </summary>
-    /// <value>The message</value>
     public string Message
     {
         get;
@@ -34,7 +32,10 @@ public class SimpleResult
     /// Whether the message can be publicly displayed
     /// (e.g. in a RFC 9457 Problem Details from a web API).
     /// </summary>
-    /// <value>The message</value>
+    /// <remarks>
+    /// It is implementation dependent how this is used.
+    /// The default is <c>true</c>, meaning the message can be displayed publicly.
+    /// </remarks>
     public bool IsPublic
     {
         get;
