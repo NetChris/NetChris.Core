@@ -31,13 +31,25 @@ public class SimpleResult
     }
 
     /// <summary>
+    /// Whether the message can be publicly displayed
+    /// (e.g. in a RFC 9457 Problem Details from a web API).
+    /// </summary>
+    /// <value>The message</value>
+    public bool IsPublic
+    {
+        get;
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="SimpleResult" /> class.
     /// </summary>
     /// <param name="resultCode">The result code</param>
     /// <param name="message">The message</param>
-    public SimpleResult(string resultCode, string message)
+    /// <param name="isPublic">Whether the message can be publicly displayed</param>
+    public SimpleResult(string resultCode, string message, bool isPublic = true)
     {
         ResultCode = resultCode;
         Message = message;
+        IsPublic = isPublic;
     }
 }
