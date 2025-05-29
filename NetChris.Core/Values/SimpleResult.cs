@@ -1,4 +1,6 @@
-﻿namespace NetChris.Core.Values;
+﻿using System;
+
+namespace NetChris.Core.Values;
 
 /// <summary>
 /// Lightweight object with a code and message.
@@ -13,9 +15,12 @@
 public class SimpleResult
 {
     /// <summary>
-    /// The result code
+    /// The result type
     /// </summary>
-    public string ResultCode
+    /// <remarks>
+    /// This is implemented as a <see cref="Uri"/> to communicate that the result is of a unique type
+    /// </remarks>
+    public Uri ResultType
     {
         get;
     }
@@ -44,12 +49,12 @@ public class SimpleResult
     /// <summary>
     /// Initializes a new instance of the <see cref="SimpleResult" /> class.
     /// </summary>
-    /// <param name="resultCode">The result code</param>
+    /// <param name="resultType">The result type</param>
     /// <param name="message">The message</param>
     /// <param name="isPublic">Whether the message can be publicly displayed</param>
-    public SimpleResult(string resultCode, string message, bool isPublic = true)
+    public SimpleResult(Uri resultType, string message, bool isPublic = true)
     {
-        ResultCode = resultCode;
+        ResultType = resultType;
         Message = message;
         IsPublic = isPublic;
     }
