@@ -7,11 +7,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		Directory.Build.props = Directory.Build.props
+		.github\.DS_Store = .github\.DS_Store
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetChris.Core", "NetChris.Core\NetChris.Core.csproj", "{24F1F7DC-1F68-4F45-BD2B-97CD9A1BF532}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetChris.Core.UnitTests", "NetChris.Core.UnitTests\NetChris.Core.UnitTests.csproj", "{18EFFC4F-2289-4469-B930-8E6F500F1BCE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{F173C738-53A9-459E-A0C9-DF7F791A3AE5}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\publish-github-pre-release.yml = .github\workflows\publish-github-pre-release.yml
+		.github\workflows\publish-github-release.yml = .github\workflows\publish-github-release.yml
+		.github\workflows\publish-nuget-org-pre-release.yml = .github\workflows\publish-nuget-org-pre-release.yml
+		.github\workflows\publish-nuget-org-release.yml = .github\workflows\publish-nuget-org-release.yml
+		.github\workflows\push.yml = .github\workflows\push.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,5 +42,6 @@ Global
 		{18EFFC4F-2289-4469-B930-8E6F500F1BCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{F173C738-53A9-459E-A0C9-DF7F791A3AE5} = {0B8D2CDC-5BCE-45C8-8928-4EFE52528923}
 	EndGlobalSection
 EndGlobal
