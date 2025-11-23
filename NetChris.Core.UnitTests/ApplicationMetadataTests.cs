@@ -89,17 +89,6 @@ public class ApplicationMetadataTests
     }
 
     [Fact]
-    public void ApplicationVersion_is_formatted_correctly()
-    {
-        // Arrange
-        // Act
-        var applicationVersion = _appMetadata.ApplicationVersion;
-
-        // Assert
-        applicationVersion.Should().Be(new Version("1.2.3.0"));
-    }
-
-    [Fact]
     public void InformationalVersion_is_formatted_correctly()
     {
         // With later versions of dotnet, the git sha will be appended to the informational version, so

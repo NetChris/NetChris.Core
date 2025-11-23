@@ -1,7 +1,9 @@
-﻿namespace NetChris.Core.Values;
+﻿using System;
+
+namespace NetChris.Core.Values;
 
 /// <summary>
-/// Lightweight object with an code and message.
+/// Lightweight object with a code and message.
 /// A glorified key/value pair.
 /// </summary>
 /// <remarks>
@@ -10,22 +12,37 @@
 /// or throw errors with unique-ish codes and an explanatory message.
 /// </para>
 /// </remarks>
+[Obsolete]
 public class SimpleResult
 {
     /// <summary>
-    /// Gets the code
+    /// The result type
     /// </summary>
-    /// <value>The result code</value>
-    public string ResultCode
+    /// <remarks>
+    /// This is implemented as a <see cref="Uri"/> to communicate that the result is of a unique type
+    /// </remarks>
+    public Uri ResultType
     {
         get;
     }
 
     /// <summary>
-    /// Gets the message.
+    /// The message
     /// </summary>
-    /// <value>The message</value>
     public string Message
+    {
+        get;
+    }
+
+    /// <summary>
+    /// Whether the message can be publicly displayed
+    /// (e.g. in a RFC 9457 Problem Details from a web API).
+    /// </summary>
+    /// <remarks>
+    /// It is implementation dependent how this is used.
+    /// The default is <c>true</c>, meaning the message can be displayed publicly.
+    /// </remarks>
+    public bool IsPublic
     {
         get;
     }
@@ -33,11 +50,13 @@ public class SimpleResult
     /// <summary>
     /// Initializes a new instance of the <see cref="SimpleResult" /> class.
     /// </summary>
-    /// <param name="resultCode">The result code</param>
+    /// <param name="resultType">The result type</param>
     /// <param name="message">The message</param>
-    public SimpleResult(string resultCode, string message)
+    /// <param name="isPublic">Whether the message can be publicly displayed</param>
+    public SimpleResult(Uri resultType, string message, bool isPublic = true)
     {
-        ResultCode = resultCode;
+        ResultType = resultType;
         Message = message;
+        IsPublic = isPublic;
     }
 }

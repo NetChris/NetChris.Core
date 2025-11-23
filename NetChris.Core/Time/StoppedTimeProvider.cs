@@ -34,4 +34,10 @@ public class StoppedTimeProvider : TimeProvider
     {
         return _stoppedTime.ToUniversalTime();
     }
+
+    /// <inheritdoc />
+    public override long GetTimestamp()
+    {
+        return _stoppedTime.Ticks;
+    }
 }
