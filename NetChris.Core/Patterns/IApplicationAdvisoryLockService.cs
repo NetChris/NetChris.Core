@@ -14,9 +14,15 @@ namespace NetChris.Core.Patterns;
 public interface IApplicationAdvisoryLockService
 {
     /// <summary>
-    /// Sets an advisory lock asynchronously for the specified value on the transaction
+    /// Sets a transaction-level advisory lock for specified value
     /// </summary>
+    /// <remarks>
+    /// As the name implies, the lock is help for the duration of a transaction.  There is no prescription where that
+    /// transaction lives or how it is managed.  It is up to the application to ensure that the implementation uses some
+    /// mechanism (usually a database transaction), to ensure that the transaction is resolved (committed or rolled back)
+    /// in a timely manner.
+    /// </remarks>
     /// <param name="lockId">The advisory lock ID</param>
     /// <param name="cancellationToken">The cancellation token used when first acquiring the lock</param>
-    Task SetAdvisoryLockAsync(int lockId, CancellationToken cancellationToken);
+    Task SetTransactionAdvisoryLockAsync(int lockId, CancellationToken cancellationToken);
 }
