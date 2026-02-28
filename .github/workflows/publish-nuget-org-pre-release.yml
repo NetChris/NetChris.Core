@@ -10,5 +10,5 @@ jobs:
       checks: write
       contents: read
       packages: write
-    uses: NetChris/workflows/.github/workflows/pre-release-nuget-org.yml@v2
+    uses: NetChris/workflows/.github/workflows/pre-release-nuget-org.yml@nuget-trusted-publishing
     secrets: inherit
