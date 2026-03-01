@@ -5,10 +5,18 @@ on:
     types: [prereleased]
 
 jobs:
-  push:
-    permissions:
-      checks: write
-      contents: read
-      packages: write
-    uses: NetChris/workflows/.github/workflows/pre-release-nuget-org.yml@nuget-trusted-publishing
-    secrets: inherit
+  nuget-oidc:
+    name: NuGet login (OIDC → temp API key)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: NuGet/login@v1
+        id: login
+        with:
+          user: ChrisSimmons
+  # push:
+  #   permissions:
+  #     checks: write
+  #     contents: read
+  #     packages: write
+  #   uses: NetChris/workflows/.github/workflows/pre-release-nuget-org.yml@nuget-trusted-publishing
+  #   secrets: inherit
