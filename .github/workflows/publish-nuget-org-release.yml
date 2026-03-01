@@ -5,10 +5,25 @@ on:
     types: [released]
 
 jobs:
+  nuget-oidc:
+    name: NuGet login (OIDC → temp API key)
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # enable GitHub OIDC token issuance for this job
+    outputs:
+      nuget_api_key: ${{ steps.login.outputs.NUGET_API_KEY }}
+    steps:
+      - uses: NuGet/login@v1
+        id: login
+        with:
+          user: ChrisSimmons
   push:
+    needs:
+      - nuget-oidc
     permissions:
       checks: write
       contents: read
       packages: write
-    uses: NetChris/workflows/.github/workflows/release-nuget-org.yml@v2
-    secrets: inherit
+    uses: NetChris/workflows/.github/workflows/release-nuget-org.yml@nuget-trusted-publishing
+    secrets: 
+      nuget_api_key: ${{ needs.nuget-oidc.outputs.nuget_api_key }}
