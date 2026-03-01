@@ -8,6 +8,8 @@ jobs:
   nuget-oidc:
     name: NuGet login (OIDC → temp API key)
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # enable GitHub OIDC token issuance for this job
     steps:
       - uses: NuGet/login@v1
         id: login
