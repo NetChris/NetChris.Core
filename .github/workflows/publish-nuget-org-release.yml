@@ -11,7 +11,7 @@ jobs:
     permissions:
       id-token: write  # enable GitHub OIDC token issuance for this job
     outputs:
-      nuget_api_key: ${{ steps.secretworkaround.outputs.NUGET_API_KEY }}
+      nuget_api_key_doublebase64: ${{ steps.secretworkaround.outputs.NUGET_API_KEY_DOUBLEBASE64 }}
     steps:
       - uses: NuGet/login@v1
         id: login
@@ -19,14 +19,27 @@ jobs:
           user: ChrisSimmons
       - name: Save Secret
         id: secretworkaround
-        run: echo "NUGET_API_KEY=${{ steps.login.outputs.NUGET_API_KEY }}" >> "$GITHUB_OUTPUT"
-  push:
+        run: |
+         echo "NUGET_API_KEY_DOUBLEBASE64=$(echo ${{ steps.login.outputs.NUGET_API_KEY }} | base64 -w0 | base64 -w0)" >> $GITHUB_OUTPUT
+  debase64:
+    name: De-base64 the secret
     needs:
       - nuget-oidc
+    runs-on: ubuntu-latest
+    outputs:
+      nuget_api_key: ${{ steps.secretworkaround.outputs.NUGET_API_KEY }}
+    steps:
+      - name: Save Secret
+        id: secretworkaround
+        run: |
+         echo "NUGET_API_KEY=$(echo ${{ needs.nuget-oidc.outputs.nuget_api_key_doublebase64 }} | base64 -di | base64 -di)" >> $GITHUB_OUTPUT
+  push:
+    needs:
+      - debase64
     permissions:
       checks: write
       contents: read
       packages: write
     uses: NetChris/workflows/.github/workflows/release-nuget-org.yml@nuget-trusted-publishing
     secrets: 
-      nuget_api_key: ${{ needs.nuget-oidc.outputs.nuget_api_key }}
+      nuget_api_key: ${{ needs.debase64.outputs.nuget_api_key }}
