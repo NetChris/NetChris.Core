@@ -31,4 +31,9 @@ Represents the application's [Canonical Application Name](https://github.com/Net
 - `netchris:application:component`
 - `netchris:application:componentShort`
 
-`ApplicationMetadata.GetApplicationMetadataFromEntryAssemblyAndConfiguration(IConfiguration, environmentName)` uses the same configuration keys to build a full `ApplicationMetadata` instance from the entry assembly.
+## ApplicationMetadata
+
+`IApplicationMetadata`/`ApplicationMetadata` capture basic metadata about the running application and its execution instance: `ApplicationName`, `CanonicalApplicationName`, `ApplicationVersion`, `InformationalVersion`, `EnvironmentName`, `MachineName`, `OSPlatform`, `OSVersion`, `UserName`, `ClrVersion`, and `StartTimestamp`.
+
+- `ApplicationMetadata.GetApplicationMetadataFromEntryAssembly(applicationAggregate, applicationAggregateShort, applicationComponent, applicationComponentShort, environmentName)` builds an instance from `Assembly.GetEntryAssembly()`, discerning `ApplicationName` from the entry assembly's name.
+- `ApplicationMetadata.GetApplicationMetadataFromEntryAssemblyAndConfiguration(IConfiguration configuration, environmentName)` does the same, but builds its `CanonicalApplicationName` via `CanonicalApplicationName.FromConfiguration(configuration)` using the well-known configuration keys above.
