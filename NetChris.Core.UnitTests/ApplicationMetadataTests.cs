@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using FluentAssertions;
+using Microsoft.Extensions.Configuration;
 using Xunit;
 
 namespace NetChris.Core.UnitTests;
@@ -8,7 +10,7 @@ namespace NetChris.Core.UnitTests;
 public class ApplicationMetadataTests
 {
     private readonly ApplicationMetadata _appMetadata;
-    private readonly ApplicationMetadata _appMetadataWithJustAggregateAndEnvironment;
+    private readonly ApplicationMetadata _appMetadataFromFactory;
 
     public ApplicationMetadataTests()
     {
@@ -17,18 +19,19 @@ public class ApplicationMetadataTests
         _appMetadata =
             new ApplicationMetadata(
                 thisAssembly,
-                "ExpectedAppAggregate",
+                "expected_app_aggregate",
                 "eaa",
-                "ExpectedAppComponent", 
+                "expected_app_component",
                 "eac",
                 thisAssembly.GetName().Name!,
                 "UnitTestEnvironment");
 
-        _appMetadataWithJustAggregateAndEnvironment =
-            ApplicationMetadata.GetApplicationMetadataFromEntryAssembly(
-                "ExpectedAppAggregate",
+        _appMetadataFromFactory =
+            ApplicationMetadata.GetApplicationMetadata(
+                thisAssembly,
+                "expected_app_aggregate",
                 "eaa",
-                "ExpectedAppComponent", 
+                "expected_app_component",
                 "eac",
                 "UnitTestEnvironment");
     }
@@ -52,7 +55,7 @@ public class ApplicationMetadataTests
         var applicationAggregate = _appMetadata.CanonicalApplicationName.ApplicationAggregate;
 
         // Assert
-        applicationAggregate.Should().Be("ExpectedAppAggregate");
+        applicationAggregate.Should().Be("expected_app_aggregate");
     }
 
     [Fact]
@@ -74,7 +77,7 @@ public class ApplicationMetadataTests
         var applicationAggregate = _appMetadata.CanonicalApplicationName.ApplicationComponent;
 
         // Assert
-        applicationAggregate.Should().Be("ExpectedAppComponent");
+        applicationAggregate.Should().Be("expected_app_component");
     }
 
     [Fact]
@@ -106,9 +109,9 @@ public class ApplicationMetadataTests
         var appMetadata1 =
             new ApplicationMetadata(
                 entryAssembly!,
-                "DoesNotMatter1",
+                "does_not_matter_1",
                 "dnm1",
-                "DoesNotMatter1",
+                "does_not_matter_1",
                 "dnm1",
                 entryAssemblyName!,
                 "UnitTestEnvironment");
@@ -116,9 +119,9 @@ public class ApplicationMetadataTests
         var appMetadata2 =
             new ApplicationMetadata(
                 entryAssembly!,
-                "DoesNotMatter2",
+                "does_not_matter_2",
                 "dnm2",
-                "DoesNotMatter2",
+                "does_not_matter_2",
                 "dnm2",
                 entryAssemblyName!,
                 "UnitTestEnvironment");
@@ -168,9 +171,36 @@ public class ApplicationMetadataTests
     }
 
     [Fact]
-    public void Auto_Assembly_detection_detects_something()
+    public void GetApplicationMetadata_discerns_ApplicationName_from_assembly()
     {
-        _appMetadataWithJustAggregateAndEnvironment.ApplicationName.Should()
+        _appMetadataFromFactory.ApplicationName.Should()
             .NotBeNullOrWhiteSpace();
+    }
+
+    [Fact]
+    public void GetApplicationMetadata_from_configuration_should_flow_values_through()
+    {
+        // Arrange
+        var thisAssembly = typeof(ApplicationMetadataTests).Assembly;
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                ["netchris:application:aggregate"] = "expected_app_aggregate",
+                ["netchris:application:aggregateShort"] = "eaa",
+                ["netchris:application:component"] = "expected_app_component",
+                ["netchris:application:componentShort"] = "eac",
+            })
+            .Build();
+
+        // Act
+        var appMetadata = ApplicationMetadata.GetApplicationMetadata(
+            thisAssembly, configuration, "UnitTestEnvironment");
+
+        // Assert
+        appMetadata.CanonicalApplicationName.ApplicationAggregate.Should().Be("expected_app_aggregate");
+        appMetadata.CanonicalApplicationName.ApplicationAggregateShort.Should().Be("eaa");
+        appMetadata.CanonicalApplicationName.ApplicationComponent.Should().Be("expected_app_component");
+        appMetadata.CanonicalApplicationName.ApplicationComponentShort.Should().Be("eac");
+        appMetadata.EnvironmentName.Should().Be("UnitTestEnvironment");
     }
 }
