@@ -57,7 +57,7 @@ public class ApplicationMetadata : IApplicationMetadata
     /// <param name="environmentName">The environment in which the application is running.</param>
     /// <remarks>In this factory, <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
     /// from <paramref name="assembly"/> using its <see cref="AssemblyName.Name"/>.</remarks>
-    public static ApplicationMetadata GetApplicationMetadataFromConfiguration(
+    public static ApplicationMetadata GetApplicationMetadata(
         Assembly assembly,
         IConfiguration configuration,
         string environmentName)

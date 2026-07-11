@@ -178,7 +178,7 @@ public class ApplicationMetadataTests
     }
 
     [Fact]
-    public void GetApplicationMetadataFromConfiguration_should_flow_values_through()
+    public void GetApplicationMetadata_from_configuration_should_flow_values_through()
     {
         // Arrange
         var thisAssembly = typeof(ApplicationMetadataTests).Assembly;
@@ -193,7 +193,7 @@ public class ApplicationMetadataTests
             .Build();
 
         // Act
-        var appMetadata = ApplicationMetadata.GetApplicationMetadataFromConfiguration(
+        var appMetadata = ApplicationMetadata.GetApplicationMetadata(
             thisAssembly, configuration, "UnitTestEnvironment");
 
         // Assert
