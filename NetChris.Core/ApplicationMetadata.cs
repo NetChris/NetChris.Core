@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using Microsoft.Extensions.Configuration;
 
 namespace NetChris.Core;
 
@@ -46,6 +47,29 @@ public class ApplicationMetadata : IApplicationMetadata
             applicationComponent, applicationComponentShort,
             assemblySimpleName, environmentName);
         return result;
+    }
+
+    /// <summary>
+    /// Gets a new instance of the <see cref="ApplicationMetadata" /> class, using
+    /// <see cref="Assembly.GetEntryAssembly"/> for the assembly on which to base its data, and
+    /// <see cref="CanonicalApplicationName.FromConfiguration"/> to determine its <see cref="CanonicalApplicationName"/>.
+    /// </summary>
+    /// <param name="configuration">The configuration from which to read the Canonical Application Name.</param>
+    /// <param name="environmentName">The environment in which the application is running.</param>
+    /// <remarks>In this factory, <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
+    /// from <see cref="Assembly.GetEntryAssembly"/> using its <see cref="AssemblyName.Name"/>.</remarks>
+    public static ApplicationMetadata GetApplicationMetadataFromEntryAssemblyAndConfiguration(
+        IConfiguration configuration,
+        string environmentName)
+    {
+        var canonicalApplicationName = CanonicalApplicationName.FromConfiguration(configuration);
+
+        return GetApplicationMetadataFromEntryAssembly(
+            canonicalApplicationName.ApplicationAggregate,
+            canonicalApplicationName.ApplicationAggregateShort,
+            canonicalApplicationName.ApplicationComponent,
+            canonicalApplicationName.ApplicationComponentShort,
+            environmentName);
     }
 
     /// <summary>
