@@ -11,38 +11,37 @@ namespace NetChris.Core;
 public class ApplicationMetadata : IApplicationMetadata
 {
     /// <summary>
-    /// Gets a new instance of the <see cref="ApplicationMetadata" /> class, using
-    /// <see cref="Assembly.GetEntryAssembly"/> for the assembly on which to base its data.
+    /// Gets a new instance of the <see cref="ApplicationMetadata" /> class.
     /// </summary>
+    /// <param name="assembly">The assembly from which to pull the <see cref="IApplicationMetadata.ApplicationName"/></param>
     /// <param name="applicationAggregate">The application aggregate</param>
     /// <param name="applicationAggregateShort">The short-form application aggregate</param>
     /// <param name="applicationComponent">The application component</param>
     /// <param name="applicationComponentShort">The short-form application component</param>
     /// <param name="environmentName">The environment in which the application is running.</param>
     /// <remarks>In this factory, <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
-    /// from <see cref="Assembly.GetEntryAssembly"/> using its <see cref="AssemblyName.Name"/>.</remarks>
-    public static ApplicationMetadata GetApplicationMetadataFromEntryAssembly(
+    /// from <paramref name="assembly"/> using its <see cref="AssemblyName.Name"/>.</remarks>
+    public static ApplicationMetadata GetApplicationMetadata(
+        Assembly assembly,
         string applicationAggregate,
         string applicationAggregateShort,
         string applicationComponent,
         string applicationComponentShort,
         string environmentName)
     {
-        var entryAssembly = Assembly.GetEntryAssembly();
-        if (entryAssembly == null)
+        if (assembly is null)
         {
-            throw new InvalidOperationException(
-                "There was no assembly available from System.Reflection.Assembly.GetEntryAssembly()");
+            throw new ArgumentNullException(nameof(assembly));
         }
 
-        var assemblySimpleName = entryAssembly.GetName().Name;
+        var assemblySimpleName = assembly.GetName().Name;
 
         if (assemblySimpleName == null)
         {
             throw new InvalidOperationException("The assembly's simple name was null");
         }
 
-        var result = new ApplicationMetadata(entryAssembly,
+        var result = new ApplicationMetadata(assembly,
             applicationAggregate, applicationAggregateShort,
             applicationComponent, applicationComponentShort,
             assemblySimpleName, environmentName);
@@ -51,20 +50,22 @@ public class ApplicationMetadata : IApplicationMetadata
 
     /// <summary>
     /// Gets a new instance of the <see cref="ApplicationMetadata" /> class, using
-    /// <see cref="Assembly.GetEntryAssembly"/> for the assembly on which to base its data, and
     /// <see cref="CanonicalApplicationName.FromConfiguration"/> to determine its <see cref="CanonicalApplicationName"/>.
     /// </summary>
+    /// <param name="assembly">The assembly from which to pull the <see cref="IApplicationMetadata.ApplicationName"/></param>
     /// <param name="configuration">The configuration from which to read the Canonical Application Name.</param>
     /// <param name="environmentName">The environment in which the application is running.</param>
     /// <remarks>In this factory, <see cref="ApplicationMetadata.ApplicationName" /> is automatically discerned
-    /// from <see cref="Assembly.GetEntryAssembly"/> using its <see cref="AssemblyName.Name"/>.</remarks>
-    public static ApplicationMetadata GetApplicationMetadataFromEntryAssemblyAndConfiguration(
+    /// from <paramref name="assembly"/> using its <see cref="AssemblyName.Name"/>.</remarks>
+    public static ApplicationMetadata GetApplicationMetadataFromConfiguration(
+        Assembly assembly,
         IConfiguration configuration,
         string environmentName)
     {
         var canonicalApplicationName = CanonicalApplicationName.FromConfiguration(configuration);
 
-        return GetApplicationMetadataFromEntryAssembly(
+        return GetApplicationMetadata(
+            assembly,
             canonicalApplicationName.ApplicationAggregate,
             canonicalApplicationName.ApplicationAggregateShort,
             canonicalApplicationName.ApplicationComponent,

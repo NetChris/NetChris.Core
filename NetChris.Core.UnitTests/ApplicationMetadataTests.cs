@@ -10,7 +10,7 @@ namespace NetChris.Core.UnitTests;
 public class ApplicationMetadataTests
 {
     private readonly ApplicationMetadata _appMetadata;
-    private readonly ApplicationMetadata _appMetadataWithJustAggregateAndEnvironment;
+    private readonly ApplicationMetadata _appMetadataFromFactory;
 
     public ApplicationMetadataTests()
     {
@@ -26,8 +26,9 @@ public class ApplicationMetadataTests
                 thisAssembly.GetName().Name!,
                 "UnitTestEnvironment");
 
-        _appMetadataWithJustAggregateAndEnvironment =
-            ApplicationMetadata.GetApplicationMetadataFromEntryAssembly(
+        _appMetadataFromFactory =
+            ApplicationMetadata.GetApplicationMetadata(
+                thisAssembly,
                 "expected_app_aggregate",
                 "eaa",
                 "expected_app_component",
@@ -170,16 +171,17 @@ public class ApplicationMetadataTests
     }
 
     [Fact]
-    public void Auto_Assembly_detection_detects_something()
+    public void GetApplicationMetadata_discerns_ApplicationName_from_assembly()
     {
-        _appMetadataWithJustAggregateAndEnvironment.ApplicationName.Should()
+        _appMetadataFromFactory.ApplicationName.Should()
             .NotBeNullOrWhiteSpace();
     }
 
     [Fact]
-    public void GetApplicationMetadataFromEntryAssemblyAndConfiguration_should_flow_values_through()
+    public void GetApplicationMetadataFromConfiguration_should_flow_values_through()
     {
         // Arrange
+        var thisAssembly = typeof(ApplicationMetadataTests).Assembly;
         var configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string?>
             {
@@ -191,8 +193,8 @@ public class ApplicationMetadataTests
             .Build();
 
         // Act
-        var appMetadata = ApplicationMetadata.GetApplicationMetadataFromEntryAssemblyAndConfiguration(
-            configuration, "UnitTestEnvironment");
+        var appMetadata = ApplicationMetadata.GetApplicationMetadataFromConfiguration(
+            thisAssembly, configuration, "UnitTestEnvironment");
 
         // Assert
         appMetadata.CanonicalApplicationName.ApplicationAggregate.Should().Be("expected_app_aggregate");
